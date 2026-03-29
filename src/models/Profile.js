@@ -1,3 +1,4 @@
+const { StickerPack } = require("discord.js");
 const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
@@ -25,6 +26,12 @@ const profileSchema = new mongoose.Schema({
     max: 120,
   },
 
+  stack: {
+    type: String,
+    default: "",
+    maxLength: 100,
+  },
+
   github: {
     type: String,
     default: "",
@@ -33,6 +40,12 @@ const profileSchema = new mongoose.Schema({
   portfolio: {
     type: String,
     default: "",
+  },
+
+  hobbies: {
+    type: String,
+    default: "",
+    maxLength: 200,
   },
 });
 

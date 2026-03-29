@@ -35,8 +35,10 @@ module.exports = {
     const bio = profile?.bio;
     const country = profile?.country;
     const age = profile?.age;
+    const stack = profile?.stack;
     const github = profile?.github;
     const portfolio = profile?.portfolio;
+    const hobbies = profile?.hobbies;
 
     const joined = member.joinedAt
       ? member.joinedAt.toLocaleDateString("en-US", {
@@ -78,6 +80,14 @@ module.exports = {
       });
     }
 
+    if (stack) {
+      embed.addFields({
+        name: "Stack",
+        value: stack,
+        inline: true,
+      });
+    }
+
     if (github) {
       embed.addFields({
         name: "GitHub",
@@ -89,7 +99,15 @@ module.exports = {
     if (portfolio) {
       embed.addFields({
         name: "Portfolio",
-        value: `[${portfolio.replace("https://", "").replace("http://", "")}](${portfolio})`,
+        value: `[Click Here](${portfolio})`,
+        inline: true,
+      });
+    }
+
+    if (hobbies) {
+      embed.addFields({
+        name: "Hobbies",
+        value: hobbies,
         inline: true,
       });
     }
