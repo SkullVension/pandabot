@@ -3,11 +3,18 @@ const { serverConfig } = require("../../../config.json");
 const Profile = require("../../models/Profile");
 
 module.exports = {
-  callback: async (client, interaction) => {
-    if (interaction.user.bot) return;
+  name: "profile",
+  description: "View a user's profile",
+  aliases: ["pfp", "whois", "i", "pro"],
+  callback: async (client, message, args) => {
+    if (message.author.bot) return;
 
-    const target = interaction.options?.getUser("user") || interaction.user;
-    const member = await interaction.guild.members.fetch(target.id);
+    // check if the user mentioned someone, or dropped in someone's id, otherwise show their own profile
+    const target =
+      message.mentions.users.first() ||
+      (args[0] ? await client.users.fetch(args[0]).catch(() => null) : null) ||
+      message.author;
+    const member = await message.guild.members.fetch(target.id);
 
     const { badgeRoles, badgeEmojis } = serverConfig;
 
@@ -92,20 +99,8 @@ module.exports = {
       iconURL: target.displayAvatarURL(),
     });
 
-    await interaction.reply({
+    await message.reply({
       embeds: [embed],
     });
   },
-
-  name: "profile",
-  description: "View a user's profile",
-
-  options: [
-    {
-      name: "user",
-      description: "User to view",
-      type: 6,
-      required: false,
-    },
-  ],
 };
