@@ -53,7 +53,7 @@ module.exports = async (client, reaction) => {
 
     const chosen = validReactions.sort((a, b) => b.count - a.count).first();
 
-    const existing = await channel.messages.fetch({ limit: 7 });
+    const existing = await channel.messages.fetch({ limit: 15 });
     if (existing.find((m) => m.embeds[0]?.footer?.text.includes(message.id)))
       return;
 

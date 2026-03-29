@@ -16,7 +16,7 @@ module.exports = ({
     .setColor(color);
 
   if (fields && fields.length) embed.addFields(fields);
-  if (footer) embed.setFooter(footer);
+  if (footer) embed.setFooter({ text: footer });
 
   const shouldEdit =
     !!reply || !!interaction?.deferred || !!interaction?.replied;
