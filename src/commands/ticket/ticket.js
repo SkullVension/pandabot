@@ -270,7 +270,6 @@ You’ll be guided through a simple form to explain your reason. I will handle t
         return;
       }
 
-      const today = new Date();
       const ticketEmbed = new EmbedBuilder()
         .setTitle("Ticket Created")
         .addFields(
@@ -282,7 +281,8 @@ You’ll be guided through a simple form to explain your reason. I will handle t
           { name: "Type", value: selectedOption.label, inline: true },
           {
             name: "Created At",
-            value: new Date().toLocaleString(),
+            // use unix timestamp for better formatting in different timezones
+            value: `<t:${Math.floor(new Date().getTime() / 1000)}:F>`,
             inline: true,
           },
           {
@@ -408,7 +408,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
               { name: "Closed By", value: i.user.toString(), inline: true },
               {
                 name: "Closed At",
-                value: new Date().toLocaleString(),
+                value: `<t:${Math.floor(new Date().getTime() / 1000)}:F>`,
                 inline: true,
               },
               {
