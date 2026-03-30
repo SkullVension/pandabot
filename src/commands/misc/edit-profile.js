@@ -2,36 +2,45 @@ const Profile = require("../../models/Profile");
 
 module.exports = {
   callback: async (client, interaction) => {
-    if (interaction.user.bot) return;
+    try {
+      if (interaction.user.bot) return;
 
-    const bio = interaction.options.getString("bio");
-    const country = interaction.options.getString("country");
-    const age = interaction.options.getInteger("age");
-    const github = interaction.options.getString("github");
-    const portfolio = interaction.options.getString("portfolio");
-    const stack = interaction.options.getString("stack");
-    const hobbies = interaction.options.getString("hobbies");
+      const bio = interaction.options.getString("bio");
+      const country = interaction.options.getString("country");
+      const age = interaction.options.getInteger("age");
+      const github = interaction.options.getString("github");
+      const portfolio = interaction.options.getString("portfolio");
+      const stack = interaction.options.getString("stack");
+      const hobbies = interaction.options.getString("hobbies");
 
-    let profile = await Profile.findOne({ userId: interaction.user.id });
+      let profile = await Profile.findOne({ userId: interaction.user.id });
 
-    if (!profile) {
-      profile = new Profile({ userId: interaction.user.id });
+      if (!profile) {
+        profile = new Profile({ userId: interaction.user.id });
+      }
+
+      if (bio !== null) profile.bio = bio;
+      if (country !== null) profile.country = country;
+      if (age !== null) profile.age = age;
+      if (github !== null) profile.github = github;
+      if (portfolio !== null) profile.portfolio = portfolio;
+      if (stack !== null) profile.stack = stack;
+      if (hobbies !== null) profile.hobbies = hobbies;
+
+      await profile.save();
+
+      await interaction.reply({
+        content: "✅ Profile updated.",
+        ephemeral: true,
+      });
+    } catch (error) {
+      console.error("Error editing profile:", error);
+      await interaction.reply({
+        content:
+          "❌ An error occurred while updating your profile, Please make sure your inputs are valid (e.g. age should be a number between 0 and 1000).",
+        ephemeral: true,
+      });
     }
-
-    if (bio !== null) profile.bio = bio;
-    if (country !== null) profile.country = country;
-    if (age !== null) profile.age = age;
-    if (github !== null) profile.github = github;
-    if (portfolio !== null) profile.portfolio = portfolio;
-    if (stack !== null) profile.stack = stack;
-    if (hobbies !== null) profile.hobbies = hobbies;
-
-    await profile.save();
-
-    await interaction.reply({
-      content: "✅ Profile updated.",
-      ephemeral: true,
-    });
   },
 
   name: "edit-profile",
