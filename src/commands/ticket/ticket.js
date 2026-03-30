@@ -290,6 +290,13 @@ You’ll be guided through a simple form to explain your reason. I will handle t
             value: reason || "No reason provided",
             inline: false,
           },
+          // map through any additional fields from the select menu option and add them to the embed
+          ...(selectedOption.fields || []).map((field) => ({
+            name: field.label,
+            value:
+              modalSubmit.fields.getTextInputValue(field.customId) || "N/A",
+            inline: false,
+          })),
         )
         .setTimestamp()
         .setFooter({
