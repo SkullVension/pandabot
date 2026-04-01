@@ -63,8 +63,7 @@ module.exports = {
     const hasWarn3 = member.roles.cache.has(warn3);
 
     const logChannel =
-      interaction.guild.channels.cache.get(serverConfig.botCommandsChannel) ||
-      null;
+      interaction.guild.channels.cache.get(serverConfig.modLogChannel) || null;
 
     let warnCount = 0;
     if (hasWarn3) warnCount = 3;
@@ -81,6 +80,16 @@ module.exports = {
       )
       .setTimestamp()
       .setThumbnail(member.user.displayAvatarURL({ size: 1024 }));
+
+    const dmEmbed = new EmbedBuilder()
+      .setTitle(`You have been warned in ${interaction.guild.name}`)
+      .setColor(0xffa500)
+      .addFields(
+        { name: "Reason", value: reason, inline: false },
+        { name: "Current Warns", value: `${warnCount + 1}/3`, inline: true },
+      )
+      .setThumbnail(member.user.displayAvatarURL({ size: 1024 }))
+      .setTimestamp();
 
     try {
       if (!hasWarn1 && !hasWarn2 && !hasWarn3) {
@@ -100,6 +109,7 @@ module.exports = {
         await interaction.editReply({
           content: `Added first warn to ${member}.`,
         });
+        await member.send({ embeds: [dmEmbed] }).catch(() => {});
         return;
       }
 
@@ -121,6 +131,7 @@ module.exports = {
         await interaction.editReply({
           content: `Upgraded warn to level 2 for ${member}.`,
         });
+        await member.send({ embeds: [dmEmbed] }).catch(() => {});
         return;
       }
 
@@ -142,6 +153,7 @@ module.exports = {
         await interaction.editReply({
           content: `Upgraded warn to level 3 for ${member}.`,
         });
+        await member.send({ embeds: [dmEmbed] }).catch(() => {});
         return;
       }
 
@@ -149,6 +161,7 @@ module.exports = {
         await interaction.editReply({
           content: `${member} has been warned 3 times. Take a mod action or pass.`,
         });
+        await member.send({ embeds: [dmEmbed] }).catch(() => {});
         if (logChannel) await logChannel.send({ embeds: [embed] });
         return;
       }

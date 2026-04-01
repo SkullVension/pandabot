@@ -103,8 +103,7 @@ module.exports = async (client, message) => {
       await message.channel.send({ embeds: [embed] });
 
       const logChannel =
-        message.guild.channels.cache.get(serverConfig.botCommandsChannel) ||
-        null;
+        message.guild.channels.cache.get(serverConfig.modLogChannel) || null;
 
       if (logChannel && message.channel.id !== logChannel.id) {
         await logChannel.send({ embeds: [embed] });
@@ -149,26 +148,6 @@ module.exports = async (client, message) => {
       await message.channel.send(
         `⚠️ ${message.author}, your message contained blocked words and was removed. This incident will be reported to the staff team`,
       );
-
-      const logChannel =
-        message.guild.channels.cache.get(serverConfig.botCommandsChannel) ||
-        null;
-
-      if (logChannel) {
-        const embed = new EmbedBuilder()
-          .setTitle("Warn User")
-          .setColor(0xff0000)
-          .addFields(
-            { name: "User", value: `${member}`, inline: true },
-            { name: "Moderator", value: `${client.user}`, inline: true },
-            { name: "Warning Count", value: `${warnLevel}`, inline: true },
-            { name: "Reason", value: "Used blocked words" },
-          )
-          .setThumbnail(member.user.displayAvatarURL({ size: 1024 }))
-          .setTimestamp();
-
-        await logChannel.send({ embeds: [embed] });
-      }
 
       const modLogChannel =
         message.guild.channels.cache.get(serverConfig.modLogChannel) || null;

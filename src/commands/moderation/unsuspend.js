@@ -78,7 +78,7 @@ module.exports = {
       .setTimestamp();
 
     const logChannel = interaction.guild.channels.cache.get(
-      serverConfig.botCommandsChannel,
+      serverConfig.modLogChannel,
     );
 
     if (logChannel) {
@@ -91,6 +91,15 @@ module.exports = {
     await interaction.editReply({
       content: `✅ Successfully Unsuspended **${optMember.user.tag}**`,
     });
+
+    const dmEmbed = new EmbedBuilder()
+      .setTitle(`You have been unsuspended from ${interaction.guild.name}`)
+      .setColor(0x00ff00)
+      .addFields({ name: "Reason", value: reason, inline: false })
+      .setThumbnail(optMember.user.displayAvatarURL({ size: 1024 }))
+      .setTimestamp();
+
+    await optMember.send({ embeds: [dmEmbed] }).catch(() => {});
   },
   name: "unsuspend",
   description: "Unsuspend a user from the server.",
