@@ -11,6 +11,8 @@ module.exports = async (client, message) => {
     const guildId = message.guild.id;
     const key = `${guildId}-${channel.id}`;
 
+    if (parseInt(message.content) !== counts.get(key)?.lastNum) return;
+
     await message.channel
       .send(
         `Hey ${message.author}, please don't delete your counting messages! The current count is **${counts.get(key)?.lastNum || 0}**.`,
