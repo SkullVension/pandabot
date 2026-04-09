@@ -14,7 +14,7 @@ module.exports = {
       counts.set(key, {
         lastNum: parseInt(args[0], 10),
         lastUser: null,
-        saves: 3,
+        saves: counts.saves ?? 0,
       });
 
       const embed = new EmbedBuilder()
