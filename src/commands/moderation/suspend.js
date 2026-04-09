@@ -7,6 +7,7 @@ const {
 } = require("discord.js");
 const { serverConfig } = require("../../../config.json");
 const { createDocument } = require("../../utils/firestore");
+const ms = require("ms");
 
 module.exports = {
   /**
@@ -18,9 +19,12 @@ module.exports = {
       const optMember = interaction.options.getMember("target-user");
       const reason =
         interaction.options.getString("reason") || "No reason provided";
+      const duration = interaction.options.getString("duration") || null;
       const suspendedRole = interaction.guild.roles.cache.get(
         serverConfig.suspendedRoleId,
       );
+
+      const validDuration = duration ? ms(duration) : null;
       await interaction.deferReply({ ephemeral: true });
 
       if (!optMember) {
@@ -59,6 +63,9 @@ module.exports = {
       await createDocument("suspensions", optMember.id, {
         moderatorId: interaction.user.id,
         reason: reason,
+        duration: duration
+          ? new Date(Date.now() + validDuration).toISOString()
+          : null,
       });
 
       const embed = new EmbedBuilder()
@@ -79,6 +86,14 @@ module.exports = {
         )
         .setThumbnail(optMember.user.displayAvatarURL({ size: 1024 }))
         .setTimestamp();
+
+      if (duration) {
+        embed.addFields({
+          name: "Duration",
+          value: duration,
+          inline: true,
+        });
+      }
 
       const logChannel = interaction.guild.channels.cache.get(
         serverConfig.modLogChannel,
@@ -135,6 +150,13 @@ module.exports = {
       description: "The reason you want to suspend.",
       type: ApplicationCommandOptionType.String,
       required: true,
+    },
+    {
+      name: "duration",
+      description:
+        "The duration of the suspension (e.g. 1d, 2h, 30m). Leave empty for indefinite.",
+      type: ApplicationCommandOptionType.String,
+      required: false,
     },
   ],
   permissionsRequired: [PermissionFlagsBits.BanMembers],
