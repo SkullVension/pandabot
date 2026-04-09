@@ -12,9 +12,9 @@ module.exports = {
       const channelId = serverConfig.countingChannel;
       const key = `${guildId}-${channelId}`;
       counts.set(key, {
-        lastNum: parseInt(args[0], 10),
+        lastNum: parseInt(args[0], 10) || 0,
         lastUser: null,
-        saves: counts.saves ?? 0,
+        saves: parseInt(args[1], 10) || 0,
       });
 
       const embed = new EmbedBuilder()
