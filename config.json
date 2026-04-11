@@ -60,6 +60,10 @@
         "ticketCategory": "1431492565760348281",
         "importantCategory": "1444027597364400138"
       }
+    },
+    "automodRules": {
+      "blockedSlurs": "1450146791658881105",
+      "blockedLinks": "1492050268651651173"
     }
   }
 }
