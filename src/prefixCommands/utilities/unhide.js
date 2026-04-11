@@ -10,12 +10,12 @@ module.exports = {
       await message.channel.permissionOverwrites.edit(
         message.guild.roles.everyone,
         {
-          ViewChannel: false,
+          ViewChannel: true,
         },
       );
-      await message.reply("Channel has been hidden.");
+      await message.reply("Channel has been unhidden.");
     } catch (err) {
-      console.error("Error hiding channel:", err);
+      console.error("Error un hiding channel:", err);
     }
   },
 };
