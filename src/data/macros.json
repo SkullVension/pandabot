@@ -186,9 +186,74 @@
       "c": "voice",
       "a": ["vc"],
       "r": "**Voice Channel Rules:** Keep your microphone clear and avoid disruptive noise. Be respectful and do not interrupt or disturb ongoing conversations."
+    },
+    {
+      "c": "respecttime",
+      "a": ["patience", "wait"],
+      "r": "**Be Patient:** People here are volunteering their time. Avoid repeating your question or asking for immediate responses."
+    },
+    {
+      "c": "nopressure",
+      "a": ["norush"],
+      "r": "**No Pressure:** Do not pressure others for quick answers. Marking questions as urgent does not guarantee faster help."
+    },
+    {
+      "c": "formatcode",
+      "a": ["codeblock", "format"],
+      "r": "**Format Your Code:** Use properly formatted code with code blocks and syntax highlighting when sharing code. This improves readability and helps others understand your issue."
+    },
+    {
+      "c": "correctchannel",
+      "a": ["wrongchannel", "channel"],
+      "r": "**Use the Correct Channel:** Make sure your question is posted in the appropriate channel to keep discussions organized."
+    },
+    {
+      "c": "duplicates",
+      "a": ["repeat", "repost"],
+      "r": "**No Duplicate Questions:** Do not repost the same question multiple times. If you need to add information, reply to your original message."
+    },
+    {
+      "c": "credits",
+      "a": ["credit", "attribution"],
+      "r": "**Give Credit:** If you share code or solutions from others, make sure to give proper credit."
+    },
+    {
+      "c": "nospam",
+      "a": ["spam"],
+      "r": "**No Spam:** Do not send repeated messages, advertisements, or irrelevant content."
+    },
+    {
+      "c": "ads",
+      "a": ["advertising", "promo"],
+      "r": "**No Advertising:** Do not promote products, services, or servers without permission."
+    },
+    {
+      "c": "safecontent",
+      "a": ["nsfw", "inappropriate"],
+      "r": "**Keep Content Appropriate:** Do not share inappropriate, explicit, or unsafe content."
+    },
+    {
+      "c": "privacy",
+      "a": ["dox", "doxxing"],
+      "r": "**Respect Privacy:** Do not share personal or sensitive information about yourself or others without permission."
+    },
+    {
+      "c": "piracy",
+      "a": ["warez", "cracked"],
+      "r": "**No Piracy:** Do not request or share pirated software, keys, or illegal downloads."
+    },
+    {
+      "c": "feedback",
+      "a": ["criticism"],
+      "r": "**Give Constructive Feedback:** When helping others, focus on being clear and respectful rather than dismissive."
+    },
+    {
+      "c": "acknowledge",
+      "a": ["thanks", "resolved"],
+      "r": "**Acknowledge Help:** If your issue is solved, let others know. This helps close the discussion and shows appreciation."
     }
   ],
-  "general": [
+  "links": [
     {
       "c": "github",
       "a": ["gh", "opendevhub", "opendvh", "org"],
