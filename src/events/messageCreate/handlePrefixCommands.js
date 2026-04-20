@@ -1,5 +1,6 @@
 const path = require("path");
 const getAllFiles = require("../../utils/getAllFiles");
+const { prefixes } = require("../../../config.json");
 
 const COOLDOWN_SECONDS = 3;
 const USER_COOLDOWNS = new Map();
@@ -14,7 +15,6 @@ module.exports = async (client, message) => {
   }
 
   try {
-    const prefixes = ["p!", "P!", "?"];
     const prefix = prefixes.find((p) => message.content.startsWith(p));
     if (!prefix) return;
 

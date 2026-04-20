@@ -2,6 +2,8 @@
   "guildId": "1429026875946172459",
   "clientId": "1430219756820103370",
   "devs": [],
+  "prefixes": ["p!", "P!"],
+  "macroPrefixes": ["++"],
   "serverConfig": {
     "welcomeChannel": "1429027697304277173",
     "botCommandsChannel": "1429028988109455454",
