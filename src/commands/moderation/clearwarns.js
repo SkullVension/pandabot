@@ -42,6 +42,13 @@ module.exports = {
       return;
     }
 
+    if (member.id === interaction.user.id) {
+      await interaction.editReply({
+        content: "You cannot clear your own warns.",
+      });
+      return;
+    }
+
     const { warn1, warn2, warn3 } = warnRoles;
     const rolesToRemove = [warn1, warn2, warn3].filter((id) =>
       member.roles.cache.has(id),
@@ -73,7 +80,7 @@ module.exports = {
         .setThumbnail(member.user.displayAvatarURL({ size: 1024 }));
 
       const logChannel =
-        interaction.guild.channels.cache.get(serverConfig.botCommandsChannel) ||
+        interaction.guild.channels.cache.get(serverConfig.modLogChannel) ||
         interaction.channel;
 
       if (logChannel) await logChannel.send({ embeds: [embed] });

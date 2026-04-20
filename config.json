@@ -11,10 +11,9 @@
       "welcomeEmoji": "1429031070665539664"
     },
     "countingChannel": "1433142662978080909",
+    "suspendedChannel": "1477224341744783442",
     "suggestionsChannel": "1441645690727039026",
     "starboardChannel": "1457370021700309083",
-    "ticketCategory": "1431492565760348281",
-    "ticketChannel": "1442927451251544236",
     "moderatorRoleId": "1441833991798788126",
     "suspendedRoleId": "1454465284982177863",
     "rulesChannel": "1429027865957109861",
@@ -59,6 +58,12 @@
         "ticketCategory": "1431492565760348281",
         "importantCategory": "1444027597364400138"
       }
+    },
+    "tickets": {
+      "category": "1431492565760348281",
+      "channel": "1442927451251544236",
+      "transcripts": "1492501182164373659",
+      "database": "1492501336296521889"
     }
   }
 }

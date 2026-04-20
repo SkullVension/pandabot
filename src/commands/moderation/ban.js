@@ -73,7 +73,7 @@ module.exports = {
         .setTimestamp();
 
       const logChannel = interaction.guild.channels.cache.get(
-        serverConfig.botCommandsChannel,
+        serverConfig.modLogChannel,
       );
 
       if (logChannel) {

@@ -22,8 +22,11 @@ module.exports = async (client, message) => {
         )} minutes.`,
       })
       .setColor(0x2b2d31);
-    message.reply({ embeds: [embed] });
+    const reply = await message.reply({ embeds: [embed] });
     afks.delete(message.author.id);
+    setTimeout(() => {
+      reply.delete().catch(() => {});
+    }, 5000);
     return;
   }
 

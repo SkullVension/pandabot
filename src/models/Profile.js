@@ -22,8 +22,8 @@ const profileSchema = new mongoose.Schema({
 
   age: {
     type: Number,
-    min: 0,
-    max: 120,
+    min: -1000,
+    max: 1000,
   },
 
   stack: {

@@ -13,7 +13,6 @@ module.exports = async (client, message) => {
     if (channel.id !== serverConfig.countingChannel) return;
 
     const content = message.content.trim();
-
     let num = null;
 
     if (/^[0-9]+$/.test(content)) {
@@ -30,9 +29,7 @@ module.exports = async (client, message) => {
           Number.isInteger(res)
         ) {
           num = res;
-        } else {
-          return;
-        }
+        } else return;
       } catch {
         return;
       }
@@ -40,22 +37,26 @@ module.exports = async (client, message) => {
       return;
     }
 
-    const state = counts.get(key) || { lastNum: 0, lastUser: null, saves: 3 };
-    if (typeof state.saves !== "number" || state.saves < 0) state.saves = 3;
+    const raw = counts.get(key);
+    const state = {
+      lastNum: raw?.lastNum ?? 0,
+      lastUser: raw?.lastUser ?? null,
+      saves: raw?.saves ?? 0,
+    };
 
     if (state.lastNum === 0) {
       if (num === 1) {
         counts.set(key, {
           lastNum: 1,
           lastUser: message.author.id,
-          saves: state.saves,
+          saves: 0,
         });
-        try {
-          await message.react("✅");
-        } catch {}
+
+        await message.react("✅").catch(() => {});
         return;
       } else {
-        counts.set(key, { lastNum: 0, lastUser: null, saves: 3 });
+        counts.set(key, { lastNum: 0, lastUser: null, saves: 0 });
+
         await message.channel.send(
           `${message.author}, the count should start at **1**. Counter has been reset.`,
         );
@@ -72,12 +73,7 @@ module.exports = async (client, message) => {
     }
 
     if (num === state.lastNum + 1) {
-      const newState = {
-        lastNum: num,
-        lastUser: message.author.id,
-        saves: state.saves,
-      };
-      counts.set(key, newState);
+      let newSaves = state.saves;
 
       try {
         switch (num) {
@@ -87,16 +83,14 @@ module.exports = async (client, message) => {
           case 50:
             await message.react("😎");
             break;
-          case 67:
-            await message.react("6️⃣");
-            await message.react("7️⃣");
-            await message.react("🫲");
-            await message.react("🫱");
-            break;
           case 75:
             await message.react("✨");
             break;
           case 100:
+            newSaves += 5;
+            await message.channel.send(
+              `We've reached **100** counts! +5 saves have been added!`,
+            );
             await message.react("💯");
             await message.react("🏆");
             break;
@@ -122,40 +116,63 @@ module.exports = async (client, message) => {
             await message.react("🤩");
             break;
           case 1000:
+            newSaves += 10;
+            await message.channel.send(
+              `Incredible! We've reached **1000** counts! 🎉🏆`,
+            );
+            await message.channel.send(
+              `+10 saves have been added! Let's keep going!`,
+            );
             await message.react("🏅");
             await message.react("🏆");
             await message.react("🎉");
-            await message.channel.send(
-              `Incredible! We've reached **1000** counts! GGs! 🎉🏆`,
-            );
             break;
           default:
             await message.react("✅");
         }
       } catch {}
+
+      counts.set(key, {
+        lastNum: num,
+        lastUser: message.author.id,
+        saves: newSaves,
+      });
+
       return;
     }
 
-    if (state.lastNum >= 100 && state.saves > 0) {
-      state.saves -= 1;
-      counts.set(key, state);
+    if (state.saves && state.saves > 0) {
+      const newSaves = state.saves - 1;
+
+      counts.set(key, {
+        lastNum: state.lastNum,
+        lastUser: state.lastUser,
+        saves: newSaves,
+      });
+
       await message.channel.send(
         `${message.author}, wrong number — expected **${
           state.lastNum + 1
-        }**. You have **${state.saves}** save${
-          state.saves === 1 ? "" : "s"
-        } left before the counter resets.`,
+        }**. You have **${newSaves}** save${
+          newSaves === 1 ? "" : "s"
+        } left before reset.`,
       );
       return;
     }
 
     const expected = state.lastNum + 1;
-    counts.set(key, { lastNum: 0, lastUser: null, saves: 3 });
+
+    counts.set(key, {
+      lastNum: 0,
+      lastUser: null,
+      saves: 0,
+    });
+
     await message.channel.send(
-      `${message.author}, wrong number — expected **${expected}**. Counter has been reset, the next number should be **1**`,
+      `${message.author}, wrong number — expected **${expected}**. Counter reset. Next number should be **1**.`,
     );
+
     message.react("❌").catch(() => {});
-    return;
   } catch (err) {
     console.error("Counting handler error:", err);
   }

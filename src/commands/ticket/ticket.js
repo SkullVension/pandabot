@@ -12,6 +12,8 @@ const {
 
 const { serverConfig } = require("../../../config.json");
 const buildModal = require("../../utils/buildModal");
+const buildTicketTranscript = require("../../utils/buildTicketTranscript");
+const crypto = require("crypto");
 
 module.exports = {
   /**
@@ -21,7 +23,8 @@ module.exports = {
    */
   callback: async (client, interaction) => {
     if (interaction.user.bot) return;
-    const { ticketCategory, moderatorRoleId } = serverConfig;
+    const { category, channel, database, transcripts } = serverConfig.tickets;
+    const { moderatorRoleId } = serverConfig;
 
     const embedContent = `This channel is here to explain how our ticket system works and keep everything organized.
 
@@ -172,6 +175,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
         (option) => option.value === ticketType,
       );
       const ticketLabel = ticketType;
+      const id = crypto.randomBytes(4).toString("hex");
 
       const modalId = `ticket_modal_${selectInteraction.user.id}_${Date.now()}`;
       const modal = buildModal(client, {
@@ -219,11 +223,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
         return;
       }
 
-      const reason = modalSubmit.fields.getTextInputValue("reason");
-
-      const safeName = `${ticketLabel}-${selectInteraction.user.username
-        .toLowerCase()
-        .replace(/[^a-z0-9-_]/g, "")}`.slice(0, 90);
+      const safeName = `${ticketLabel}-${id}`;
 
       const overwrites = [
         {
@@ -257,7 +257,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
         ticketChannel = await selectInteraction.guild.channels.create({
           name: safeName,
           type: ChannelType.GuildText,
-          parent: ticketCategory ?? undefined,
+          parent: category ?? undefined,
           topic: ticketLabel,
           permissionOverwrites: overwrites,
         });
@@ -285,15 +285,17 @@ You’ll be guided through a simple form to explain your reason. I will handle t
             value: `<t:${Math.floor(new Date().getTime() / 1000)}:F>`,
             inline: true,
           },
-          {
-            name: "Reason",
-            value: reason || "No reason provided",
+          // map through any additional fields from the select menu option and add them to the embed
+          ...(selectedOption.fields || []).map((field) => ({
+            name: field.label,
+            value:
+              modalSubmit.fields.getTextInputValue(field.customId) || "N/A",
             inline: false,
-          },
+          })),
         )
         .setTimestamp()
         .setFooter({
-          text: `Ticket for ${selectInteraction.user.tag} • Powered by Panda`,
+          text: `Ticket for ${selectInteraction.user.tag}`,
           iconURL: selectInteraction.user.displayAvatarURL(),
         });
 
@@ -396,6 +398,62 @@ You’ll be guided through a simple form to explain your reason. I will handle t
         await closeSubmit
           .reply({ content: "Closing ticket...", ephemeral: true })
           .catch(() => {});
+
+        const id = safeName.split("-")[1];
+
+        // transcript
+        try {
+          const databaseChannel = await client.channels.fetch(database);
+          const transcriptsChannel = await client.channels.fetch(transcripts);
+
+          const fetchedMessages = await ticketChannel.messages.fetch({
+            limit: 100,
+          });
+          const sortedMessages = fetchedMessages.sort(
+            (a, b) => a.createdTimestamp - b.createdTimestamp,
+          );
+
+          const messagesData = [];
+          for (const msg of sortedMessages.values()) {
+            if (msg.author.bot) continue; // exclude bot messages
+            const attachments = [];
+            for (const attach of msg.attachments.values()) {
+              if (attach.contentType?.startsWith("image/")) {
+                const sent = await databaseChannel.send({
+                  files: [
+                    {
+                      attachment: attach.url,
+                      name: attach.name || "image.png",
+                    },
+                  ],
+                });
+                attachments.push(sent.attachments.first().url);
+              }
+            }
+            messagesData.push({
+              id: msg.id,
+              authorId: msg.author.id,
+              content: msg.content,
+              timestamp: msg.createdTimestamp,
+              attachments,
+              reference: msg.reference,
+            });
+          }
+
+          const html = await buildTicketTranscript(client, messagesData);
+          await transcriptsChannel.send({
+            content: `Ticket ID: ${id}`,
+            files: [
+              {
+                attachment: Buffer.from(html),
+                name: `transcript-${safeName}.html`,
+              },
+            ],
+          });
+        } catch (e) {
+          console.error("Failed to generate transcript:", e);
+        }
+
         try {
           await ticketChannel.delete(`Ticket closed by ${i.user.tag}`);
           const dmContent = new EmbedBuilder()
@@ -405,12 +463,9 @@ You’ll be guided through a simple form to explain your reason. I will handle t
             )
             .setFields(
               { name: "Type", value: selectedOption.label, inline: true },
+              { name: "ID", value: id, inline: true },
               { name: "Closed By", value: i.user.toString(), inline: true },
-              {
-                name: "Closed At",
-                value: `<t:${Math.floor(new Date().getTime() / 1000)}:F>`,
-                inline: true,
-              },
+
               {
                 name: "Reason",
                 value: closeReason || "No reason provided",
@@ -418,6 +473,10 @@ You’ll be guided through a simple form to explain your reason. I will handle t
               },
             )
             .setColor(0x11ee11)
+            .setFooter({
+              text: `Closed at ${new Date().toLocaleString()}`,
+              iconURL: client.user.displayAvatarURL(),
+            })
             .setTimestamp();
 
           await selectInteraction.user
