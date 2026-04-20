@@ -46,7 +46,7 @@ module.exports = async (client, message) => {
     }
 
     if (response) {
-      await message.reply(response);
+      await message.channel.send({ content: response });
     }
   } catch (err) {
     console.error("Prefix Command Error:", err);
