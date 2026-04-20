@@ -1,0 +1,198 @@
+{
+  "question": [
+    {
+      "c": "askbetter",
+      "a": ["howtoask", "how2ask"],
+      "r": "**Ask Better Questions:** Include clear details about your problem: what you're trying to do, what you expected, what actually happened, and any relevant code or errors. This makes it much easier for others to help you.\nhttps://stackoverflow.com/help/how-to-ask"
+    },
+    {
+      "c": "dontasktoask",
+      "a": ["ask", "justask"],
+      "r": "**Don't Ask to Ask:** Instead of asking if you can ask a question, just ask it directly. This helps others understand your issue right away.\nhttps://dontasktoask.com/"
+    },
+    {
+      "c": "imageofanerror",
+      "a": ["imageoferror"],
+      "r": "**Avoid Images of Errors:** Please copy and paste the error message as text using code blocks. This makes it easier to read, search, and debug.\nhttps://idownvotedbecau.se/imageofatextualerror/"
+    },
+    {
+      "c": "imageofcode",
+      "a": ["pictureofcode", "imgofcode"],
+      "r": "**Avoid Images of Code:** Share code as text in code blocks so others can read, copy, and test it. Images make this difficult.\nhttps://idownvotedbecau.se/imageofcode/"
+    },
+    {
+      "c": "itsnotworking",
+      "a": ["itdoesntwork", "notworking", "doesntwork"],
+      "r": "**\"It's Not Working\" Isn't Enough:** Explain what you expected, what actually happened, and include relevant code or errors. More detail leads to better help.\nhttp://idownvotedbecau.se/itsnotworking/"
+    },
+    {
+      "c": "mcve",
+      "r": "**Provide a Minimal Reproducible Example:** Share the smallest amount of code needed to reproduce your issue so others can quickly understand and test it.\nhttps://stackoverflow.com/help/minimal-reproducible-example"
+    },
+    {
+      "c": "noattempt",
+      "r": "**Show Your Attempt:** Include what you've already tried. This helps others understand where you're stuck and avoids repeating suggestions.\nhttp://idownvotedbecau.se/noattempt/"
+    },
+    {
+      "c": "nocode",
+      "a": ["showcode", "postcode"],
+      "r": "**No Code Provided:** It's difficult to help without seeing the relevant code. Please include the parts related to your issue.\nhttp://idownvotedbecau.se/nocode/"
+    },
+    {
+      "c": "nodebug",
+      "a": ["nodebugging"],
+      "r": "**Try Debugging First:** Read error messages, add logs, and test parts of your code to narrow down the issue. Sharing your debugging steps helps others assist you.\nhttp://idownvotedbecau.se/nodebugging/"
+    },
+    {
+      "c": "noerror",
+      "r": "**Include the Error Message:** If your code produces an error, share the full message. It often contains important clues.\nhttp://idownvotedbecau.se/noerror/"
+    },
+    {
+      "c": "nohello",
+      "r": "**Don't Just Say Hello:** Ask your question directly instead of starting with only a greeting. This helps others respond more efficiently.\nhttps://www.nohello.net/"
+    },
+    {
+      "c": "noresearch",
+      "a": ["research"],
+      "r": "**Do Some Research First:** Try searching or checking documentation before asking. If you still need help, mention what you've already looked at.\nhttp://idownvotedbecau.se/noresearch/"
+    },
+    {
+      "c": "sask",
+      "r": "**Ask Directly:** Briefly describe your actual problem instead of asking if someone knows about a topic. This makes it easier to help right away."
+    },
+    {
+      "c": "tldr",
+      "r": "**Keep It Concise:** Your message is quite long. Try summarizing the key points so others can understand your issue quickly."
+    },
+    {
+      "c": "toomuchcode",
+      "r": "**Too Much Code:** Avoid sharing entire projects. Focus on the smallest portion of code that reproduces the issue.\nhttp://idownvotedbecau.se/toomuchcode/"
+    },
+    {
+      "c": "toomuchinfo",
+      "r": "**Too Much Information:** Remove unrelated details and focus on what is directly relevant to your problem."
+    },
+    {
+      "c": "tos",
+      "a": ["terms", "termsofservice", "discordtos", "guidelines", "guideline"],
+      "r": "**Community Guidelines:** https://discord.com/guidelines\n**Terms of Service:** https://discord.com/terms"
+    },
+    {
+      "c": "tryit",
+      "a": ["tias"],
+      "r": "**Try It Yourself:** Experiment with your code or idea first. Testing things on your own is often the fastest way to learn and understand the issue."
+    },
+    {
+      "c": "unclearquestion",
+      "a": ["unclear"],
+      "r": "**Unclear Question:** Please clarify what you're trying to do, include relevant code, and explain the issue more clearly.\nhttp://idownvotedbecau.se/unclearquestion/"
+    },
+    {
+      "c": "xyproblem",
+      "a": ["xy"],
+      "r": "**The XY Problem:** You're asking about a specific solution instead of the actual problem. Explain your original goal so better solutions can be suggested.\nhttps://xyproblem.info/"
+    }
+  ],
+  "rules": [
+    {
+      "c": "backseat",
+      "r": "**No Backseat Coding:** Avoid giving unsolicited advice or taking over someone else's troubleshooting unless they ask for it. It can confuse the person being helped and disrupt the flow of the conversation."
+    },
+    {
+      "c": "changesubjects",
+      "a": ["changesubject", "changetopic"],
+      "r": "**One Topic at a Time:** Avoid switching topics while someone is helping you with an issue. This makes it difficult to follow progress. Once your issue is resolved, you can start a new discussion."
+    },
+    {
+      "c": "chatgpt",
+      "a": ["cursor", "claude", "copilot"],
+      "r": "**AI Usage:** AI tools can be helpful, but they may produce outdated or incorrect code. If you are sharing AI-generated code, please mention it. Make sure you understand what you are posting so others can help effectively."
+    },
+    {
+      "c": "cheat",
+      "a": ["cheating"],
+      "r": "**No Cheating:** Do not ask for help with graded assignments, interviews, or anything that involves academic or professional dishonesty. This community is here to help you learn, not to bypass the process."
+    },
+    {
+      "c": "crypto",
+      "a": ["nft", "blockchain", "web3"],
+      "r": "**Crypto Policy:** This server does not provide support for cryptocurrency, NFTs, or blockchain-related projects. Please use communities dedicated to those topics."
+    },
+    {
+      "c": "dm",
+      "a": ["nodm", "nofriendreq", "nofriendrequest"],
+      "r": "**No Direct Messages for Help:** Keep help-related discussions in public channels. This allows others to learn and ensures multiple people can assist if needed."
+    },
+    {
+      "c": "english",
+      "r": "**English Only:** Please use English in this channel so moderators and members can understand and assist you effectively."
+    },
+    {
+      "c": "exams",
+      "a": ["noexams", "noactiveexams"],
+      "r": "**No Help with Active Exams:** Requests related to ongoing exams, certifications, or timed tests are not allowed."
+    },
+    {
+      "c": "flame",
+      "a": ["toxic", "toxicity"],
+      "r": "**No Flaming or Toxicity:** Be respectful. Personal attacks, insults, or aggressive behavior are not allowed. Keep discussions constructive."
+    },
+    {
+      "c": "freework",
+      "a": ["labor"],
+      "r": "**No Requests for Free Work:** Do not ask others to build projects or features for you. Show your own work and ask for guidance instead."
+    },
+    {
+      "c": "hacks",
+      "a": ["hacking", "cracking"],
+      "r": "**No Hacking or Exploits:** Do not discuss or request help with unauthorized access, exploits, or malicious activities."
+    },
+    {
+      "c": "image",
+      "a": ["images"],
+      "r": "**Use Images Appropriately:** Avoid excessive or unnecessary images. For code or errors, use text and code blocks instead of screenshots."
+    },
+    {
+      "c": "moveon",
+      "a": ["cc"],
+      "r": "**Move On:** This discussion is no longer productive. Please stop and move to another topic."
+    },
+    {
+      "c": "nickpolicy",
+      "a": ["nicknamepolicy", "nicknames"],
+      "r": "**Nickname Policy:** Use a readable and appropriate nickname. Avoid names that are hard to mention, misleading, or disruptive."
+    },
+    {
+      "c": "noping",
+      "a": ["ping", "nopings"],
+      "r": "**No Unnecessary Pings:** Do not ping users or staff for general help. Ask your question normally and wait for a response."
+    },
+    {
+      "c": "scraping",
+      "a": ["webscraping", "scrape", "automation"],
+      "r": "**Scraping Policy:** Make sure your automation follows the target site's rules. Do not ask for help bypassing protections or scraping restricted platforms like Discord."
+    },
+    {
+      "c": "selfbot",
+      "a": ["selfbots"],
+      "r": "**No Self-Bots:** Automating a user account violates Discord's Terms of Service. Discussion or support for self-bots is not allowed."
+    },
+    {
+      "c": "spoon",
+      "a": ["spoonfeed", "spoonfeeding"],
+      "r": "**No Spoon-Feeding:** Focus on learning rather than copying solutions. Try to understand the guidance you receive."
+    },
+    {
+      "c": "voice",
+      "a": ["vc"],
+      "r": "**Voice Channel Rules:** Keep your microphone clear and avoid disruptive noise. Be respectful and do not interrupt or disturb ongoing conversations."
+    }
+  ],
+  "general": [
+    {
+      "c": "github",
+      "a": ["gh", "opendevhub", "opendvh", "org"],
+      "r": "https://github.com/open-devhub"
+    }
+  ]
+}
