@@ -23,7 +23,7 @@ module.exports = {
    */
   callback: async (client, interaction) => {
     if (interaction.user.bot) return;
-    const { category, channel, database, transcripts } = serverConfig.tickets;
+    const { category, ticketsAdminId } = serverConfig.tickets;
     const { moderatorRoleId } = serverConfig;
 
     const embedContent = `This channel is here to explain how our ticket system works and keep everything organized.
@@ -305,7 +305,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
       const actionRow = new ActionRowBuilder().addComponents(closeButton);
 
       const posted = await ticketChannel.send({
-        // content: "@everyone",
+        content: `${selectInteraction.user} <@&${ticketsAdminId}>`,
         embeds: [ticketEmbed],
         components: [actionRow],
       });
