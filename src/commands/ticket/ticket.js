@@ -293,9 +293,8 @@ You’ll be guided through a simple form to explain your reason. I will handle t
             inline: false,
           })),
         )
-        .setTimestamp()
         .setFooter({
-          text: `Ticket for ${selectInteraction.user.tag}`,
+          text: `${selectInteraction.user.id}`,
           iconURL: selectInteraction.user.displayAvatarURL(),
         });
 
@@ -306,7 +305,7 @@ You’ll be guided through a simple form to explain your reason. I will handle t
       const actionRow = new ActionRowBuilder().addComponents(closeButton);
 
       const posted = await ticketChannel.send({
-        content: "@everyone",
+        // content: "@everyone",
         embeds: [ticketEmbed],
         components: [actionRow],
       });
@@ -319,172 +318,6 @@ You’ll be guided through a simple form to explain your reason. I will handle t
       await modalSubmit.reply({
         content: `Ticket created: ${ticketChannel}`,
         ephemeral: true,
-      });
-
-      const buttonCollector = posted.createMessageComponentCollector({
-        componentType: ComponentType.Button,
-        time: 0,
-      });
-
-      buttonCollector.on("collect", async (i) => {
-        if (i.customId !== "close_ticket") return;
-
-        const member = i.member;
-        const isOpener = i.user.id === selectInteraction.user.id;
-        const isModerator =
-          moderatorRoleId && member.roles.cache.has(moderatorRoleId);
-        const isAdmin = member.permissions.has(
-          PermissionFlagsBits.Administrator,
-        );
-
-        if (!isOpener && !isModerator && !isAdmin) {
-          await i.reply({
-            content: "You are not allowed to close this ticket.",
-            ephemeral: true,
-          });
-          return;
-        }
-
-        const closeModalId = `close_ticket_modal_${i.user.id}_${Date.now()}`;
-        const closeModal = buildModal(client, {
-          customId: closeModalId,
-          title: "Close Ticket",
-          fields: [
-            {
-              customId: "reason",
-              label: "Reason",
-              style: "PARAGRAPH",
-              placeholder: "Explain why this ticket is being closed (optional)",
-              required: false,
-              maxLength: 1024,
-            },
-          ],
-        });
-
-        try {
-          await i.showModal(closeModal);
-        } catch (err) {
-          console.error("Failed to show close modal:", err);
-          await i
-            .reply({
-              content: "Failed to open close form. Please try again.",
-              ephemeral: true,
-            })
-            .catch(() => {});
-          return;
-        }
-
-        let closeSubmit;
-        try {
-          closeSubmit = await i.awaitModalSubmit({
-            filter: (m) =>
-              m.user.id === i.user.id && m.customId === closeModalId,
-            time: 300000,
-          });
-        } catch (err) {
-          console.error("Close modal submit error or timeout:", err);
-          await i
-            .followUp({
-              content: "You did not submit the close form in time.",
-              ephemeral: true,
-            })
-            .catch(() => {});
-          return;
-        }
-
-        const closeReason =
-          closeSubmit.fields.getTextInputValue("reason") || "";
-
-        await closeSubmit
-          .reply({ content: "Closing ticket...", ephemeral: true })
-          .catch(() => {});
-
-        const id = safeName.split("-")[1];
-
-        // transcript
-        try {
-          const databaseChannel = await client.channels.fetch(database);
-          const transcriptsChannel = await client.channels.fetch(transcripts);
-
-          const fetchedMessages = await ticketChannel.messages.fetch({
-            limit: 100,
-          });
-          const sortedMessages = fetchedMessages.sort(
-            (a, b) => a.createdTimestamp - b.createdTimestamp,
-          );
-
-          const messagesData = [];
-          for (const msg of sortedMessages.values()) {
-            if (msg.author.bot) continue; // exclude bot messages
-            const attachments = [];
-            for (const attach of msg.attachments.values()) {
-              if (attach.contentType?.startsWith("image/")) {
-                const sent = await databaseChannel.send({
-                  files: [
-                    {
-                      attachment: attach.url,
-                      name: attach.name || "image.png",
-                    },
-                  ],
-                });
-                attachments.push(sent.attachments.first().url);
-              }
-            }
-            messagesData.push({
-              id: msg.id,
-              authorId: msg.author.id,
-              content: msg.content,
-              timestamp: msg.createdTimestamp,
-              attachments,
-              reference: msg.reference,
-            });
-          }
-
-          const html = await buildTicketTranscript(client, messagesData);
-          await transcriptsChannel.send({
-            content: `Ticket ID: ${id}`,
-            files: [
-              {
-                attachment: Buffer.from(html),
-                name: `transcript-${safeName}.html`,
-              },
-            ],
-          });
-        } catch (e) {
-          console.error("Failed to generate transcript:", e);
-        }
-
-        try {
-          await ticketChannel.delete(`Ticket closed by ${i.user.tag}`);
-          const dmContent = new EmbedBuilder()
-            .setTitle("Ticket Closed")
-            .setDescription(
-              `Your ticket "${safeName}" has been closed. If you have further questions, feel free to open a new ticket.`,
-            )
-            .setFields(
-              { name: "Type", value: selectedOption.label, inline: true },
-              { name: "ID", value: id, inline: true },
-              { name: "Closed By", value: i.user.toString(), inline: true },
-
-              {
-                name: "Reason",
-                value: closeReason || "No reason provided",
-                inline: false,
-              },
-            )
-            .setColor(0x11ee11)
-            .setFooter({
-              text: `Closed at ${new Date().toLocaleString()}`,
-              iconURL: client.user.displayAvatarURL(),
-            })
-            .setTimestamp();
-
-          await selectInteraction.user
-            .send({ embeds: [dmContent] })
-            .catch(() => {});
-        } catch (e) {
-          console.error("Failed to delete ticket channel:", e);
-        }
       });
     });
   },

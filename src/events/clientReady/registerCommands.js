@@ -75,6 +75,7 @@ module.exports = async (client) => {
         console.log(`👍 Registered command "${name}."`);
       }
     }
+    // await applicationCommands.set([]);
   } catch (error) {
     console.log(`There was an error: ${error}`);
   }
