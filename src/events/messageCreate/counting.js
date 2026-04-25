@@ -1,5 +1,6 @@
 const { serverConfig } = require("../../../config.json");
 const { counts } = require("../../states/counting");
+const Counting = require("../../models/Counting");
 
 module.exports = async (client, message) => {
   try {
@@ -50,6 +51,18 @@ module.exports = async (client, message) => {
           lastNum: 1,
           lastUser: message.author.id,
           saves: 0,
+        });
+
+        let count = await Counting.findOne({ userId: message.author.id });
+
+        if (!count) {
+          count = new Counting({ userId: message.author.id, counts: 1 });
+        } else {
+          count.counts += 1;
+        }
+
+        await count.save().catch((err) => {
+          console.error("Error saving count to database:", err);
         });
 
         await message.react("✅").catch(() => {});
@@ -136,6 +149,18 @@ module.exports = async (client, message) => {
         lastNum: num,
         lastUser: message.author.id,
         saves: newSaves,
+      });
+
+      let count = await Counting.findOne({ userId: message.author.id });
+
+      if (!count) {
+        count = new Counting({ userId: message.author.id, counts: 1 });
+      } else {
+        count.counts += 1;
+      }
+
+      await count.save().catch((err) => {
+        console.error("Error saving count to database:", err);
       });
 
       return;
