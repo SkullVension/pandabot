@@ -1,0 +1,153 @@
+[
+  {
+    "c": "r1",
+    "t": "Rule #1: Respect Others",
+    "pts": [
+      "Treat all members with respect.",
+      "No harassment, discrimination, or personal attacks.",
+      "Respect different backgrounds, opinions, and skill levels."
+    ]
+  },
+  {
+    "c": "r2",
+    "t": "Rule #2: Keep Discussions Civil",
+    "pts": [
+      "Debate ideas respectfully.",
+      "Do not provoke, escalate, or create unnecessary conflict."
+    ]
+  },
+  {
+    "c": "r3",
+    "t": "Rule #3: Give Constructive Feedback",
+    "pts": [
+      "Focus on improving ideas, code, or projects.",
+      "Avoid attacking individuals when giving criticism."
+    ]
+  },
+  {
+    "c": "r4",
+    "t": "Rule #4: Follow Staff Instructions",
+    "pts": [
+      "Comply with moderator and admin decisions.",
+      "Do not argue about moderation in public channels.",
+      "Use designated channels to appeal decisions."
+    ]
+  },
+  {
+    "c": "r5",
+    "t": "Rule #5: Use Channels Correctly",
+    "pts": [
+      "Stay on topic in each channel.",
+      "Use appropriate channels for off-topic content."
+    ]
+  },
+  {
+    "c": "r6",
+    "t": "Rule #6: Format Code Properly",
+    "pts": [
+      "Use code blocks when sharing code.",
+      "Provide context instead of posting raw or excessive code."
+    ]
+  },
+  {
+    "c": "r7",
+    "t": "Rule #7: No Spam",
+    "pts": [
+      "Do not send repetitive or excessive messages.",
+      "Avoid flooding channels with unnecessary content."
+    ]
+  },
+  {
+    "c": "r8",
+    "t": "Rule #8: Use Mentions Responsibly",
+    "pts": ["Do not abuse mentions.", "Avoid unnecessary role or staff pings."]
+  },
+  {
+    "c": "r9",
+    "t": "Rule #9: Respect Privacy",
+    "pts": [
+      "Do not share personal information without consent.",
+      "No leaking private messages or sensitive data."
+    ]
+  },
+  {
+    "c": "r10",
+    "t": "Rule #10: No Unauthorized Promotion",
+    "pts": [
+      "Do not advertise without prior approval.",
+      "Only promote in designated channels when permitted."
+    ]
+  },
+  {
+    "c": "r11",
+    "t": "Rule #11: No Malicious Activity",
+    "pts": [
+      "Do not share malware, phishing links, or scams.",
+      "No discussion of illegal or harmful activities."
+    ]
+  },
+  {
+    "c": "r12",
+    "t": "Rule #12: Respect Intellectual Property",
+    "pts": [
+      "Do not share pirated or cracked software.",
+      "Respect licenses and ownership rights."
+    ]
+  },
+  {
+    "c": "r13",
+    "t": "Rule #13: Use Bots Appropriately",
+    "pts": [
+      "Use bot commands in designated channels.",
+      "Do not exploit or abuse bot functionality."
+    ]
+  },
+  {
+    "c": "r14",
+    "t": "Rule #14: Use English in Public Channels",
+    "pts": [
+      "Communicate in English in public channels.",
+      "Ensure messages can be moderated when necessary."
+    ]
+  },
+  {
+    "c": "r15",
+    "t": "Rule #15: No NSFW Content",
+    "pts": [
+      "Do not share sexually explicit or inappropriate content.",
+      "Applies to text, media, and user profiles."
+    ]
+  },
+  {
+    "c": "r16",
+    "t": "Rule #16: No Impersonation",
+    "pts": [
+      "Do not impersonate staff or other members.",
+      "Use clear identifiers IF roleplay is allowed."
+    ]
+  },
+  {
+    "c": "r17",
+    "t": "Rule #17: Voice Channel Conduct",
+    "pts": [
+      "Avoid disruptive noise or behavior.",
+      "Respect others while speaking."
+    ]
+  },
+  {
+    "c": "r18",
+    "t": "Rule #18: No Circumventing Moderation",
+    "pts": [
+      "Do not attempt to bypass restrictions or punishments.",
+      "Do not use alternate accounts to evade actions."
+    ]
+  },
+  {
+    "c": "r19",
+    "t": "Rule #19: Follow Discord Policies",
+    "pts": [
+      "Comply with Discord Terms of Service.",
+      "Comply with Discord Community Guidelines."
+    ]
+  }
+]
