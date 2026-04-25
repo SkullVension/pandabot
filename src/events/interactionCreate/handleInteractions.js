@@ -1,18 +1,16 @@
 const getAllFiles = require("../../utils/getAllFiles");
 const path = require("path");
 
+const interactions = [];
+const interactionFiles = getAllFiles(
+  path.join(__dirname, "..", "..", "interactions"),
+);
+for (const file of interactionFiles) {
+  const command = require(file);
+  interactions.push(command);
+}
+
 module.exports = async (client, interaction) => {
-  const interactions = [];
-
-  const interactionFiles = await getAllFiles(
-    path.join(__dirname, "..", "..", "interactions"),
-  );
-
-  for await (const file of interactionFiles) {
-    const command = require(file);
-    interactions.push(command);
-  }
-
   try {
     const interactionObject = interactions.find(
       (cmd) => cmd.id === interaction.customId,

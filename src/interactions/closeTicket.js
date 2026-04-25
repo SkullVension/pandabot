@@ -46,7 +46,7 @@ module.exports = {
       await interaction.showModal(closeModal);
     } catch (err) {
       console.error("Failed to show close modal:", err);
-      await i
+      await interaction
         .reply({
           content: "Failed to open close form. Please try again.",
           ephemeral: true,
@@ -64,7 +64,7 @@ module.exports = {
       });
     } catch (err) {
       console.error("Close modal submit error or timeout:", err);
-      await i
+      await interaction
         .followUp({
           content: "You did not submit the close form in time.",
           ephemeral: true,
