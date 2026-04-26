@@ -5,20 +5,21 @@ module.exports = async (client, member) => {
     const guildName = member.guild?.name || "the server";
     const mention = member.user?.toString() || `<@${member.id}>`;
 
-    const dmContent = `Hello ${mention}, 👋  
+    const dmContent = `Hello ${mention}, 👋
 
-Welcome to **${guildName}**! We’re glad to have you here.
+Welcome to **${guildName}**, we're glad to have you here.
 
-This community is built for people who enjoy creating, learning, and solving problems together. Its all about leveling up together:
-- Building or refining a project? Share it with the community.
-- Running into a bug or unexpected issue? Drop it in — someone will be happy to help.
-- Learning something new or have knowledge to share? Jump into the relevant channels.
-- Looking to collaborate or brainstorm ideas? Connect with other members.
-- Exploring new tools, tech, or best practices? Start the conversation anytime.
+This community is a space for people who enjoy building, learning, and solving problems together. Whether you're just starting out or already experienced, you'll find others here to connect with and learn from.
 
-Take a moment to explore the channels and get familiar with the server. If you ever have questions or need guidance, don’t hesitate to ask.
+Feel free to:
+- Share projects you're working on or ideas you're developing
+- Ask for help if you run into issues or get stuck
+- Contribute knowledge or insights in discussions
+- Collaborate and exchange ideas with other members
+- Explore tools, technologies, and best practices together
 
-Welcome aboard — we’re excited to build and grow together 🚀
+Take some time to look around and get familiar with the channels. If you need anything or have questions, don't hesitate to ask.
+Welcome aboard, we’re looking forward to seeing what you create 🚀
 `;
 
     // attempt to dm tha new member, users may have dms from server members disabled
