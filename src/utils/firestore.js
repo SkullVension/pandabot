@@ -1,30 +1,23 @@
 const { db } = require("../config/firebase.js");
-const {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-} = require("firebase/firestore");
 
 function createDocument(collection, documentId, data) {
-  const documentRef = doc(db, collection, documentId);
-  return setDoc(documentRef, data);
+  return db.collection(collection).doc(documentId).set(data);
 }
 
 function deleteDocument(collection, documentId) {
-  const documentRef = doc(db, collection, documentId);
-  return deleteDoc(documentRef);
+  return db.collection(collection).doc(documentId).delete();
 }
 
-function getDocument(collection, documentId) {
-  const documentRef = doc(db, collection, documentId);
-  return getDoc(documentRef);
+async function getDocument(collection, documentId) {
+  const docSnap = await db.collection(collection).doc(documentId).get();
+
+  if (!docSnap.exists) return null;
+
+  return docSnap.data();
 }
 
 function updateDocument(collection, documentId, data) {
-  const documentRef = doc(db, collection, documentId);
-  return updateDoc(documentRef, data);
+  return db.collection(collection).doc(documentId).update(data);
 }
 
 module.exports = {
