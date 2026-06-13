@@ -51,8 +51,10 @@ export default async (client) => {
         if (areCommandsDifferent(existingCommand, localCommand)) {
           const commandData = { name };
           if (type === undefined || type === ApplicationCommandType.ChatInput) {
-            commandData.description = description;
-            commandData.options = options;
+            commandData.description = description || "No description provided";
+            if (Array.isArray(options) && options.length > 0) {
+              commandData.options = options;
+            }
           } else {
             commandData.type = type;
           }
@@ -71,8 +73,10 @@ export default async (client) => {
 
         const commandData = { name };
         if (type === undefined || type === ApplicationCommandType.ChatInput) {
-          commandData.description = description;
-          commandData.options = options;
+          commandData.description = description || "No description provided";
+          if (Array.isArray(options) && options.length > 0) {
+            commandData.options = options;
+          }
         } else {
           commandData.type = type;
         }
