@@ -1,7 +1,7 @@
-const { EmbedBuilder } = require("discord.js");
-const rulesData = require("../../data/rules.json");
+import { EmbedBuilder } from "discord.js";
+import rulesData from "../../data/rules.json" with { type: "json" };
 
-module.exports = {
+export default {
   name: "postrules",
   description: "Posts the server rules in the current channel.",
   callback: (client, message, args) => {

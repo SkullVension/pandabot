@@ -1,13 +1,15 @@
-const { ApplicationCommandType } = require("discord.js");
-const { serverConfig } = require("../../../config.json");
-const {
-  EmbedBuilder,
+import {
   ActionRowBuilder,
+  ApplicationCommandType,
   ButtonBuilder,
   ButtonStyle,
-} = require("discord.js");
+  EmbedBuilder,
+} from "discord.js";
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   name: "Report Message",
   type: ApplicationCommandType.Message,
 

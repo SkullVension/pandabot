@@ -1,14 +1,12 @@
-const {
+import {
   ActionRowBuilder,
+  EmbedBuilder,
+  PermissionFlagsBits,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
-  PermissionFlagsBits,
-  EmbedBuilder,
-} = require("discord.js");
+} from "discord.js";
 
-const { serverConfig } = require("../../../config.json");
-
-module.exports = {
+export default {
   /**
    *
    * @param {Client} client

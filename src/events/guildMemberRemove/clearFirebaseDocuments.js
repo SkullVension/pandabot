@@ -1,6 +1,6 @@
-const { deleteDocument } = require("../../utils/firestore");
+import { deleteDocument } from "../../utils/firestore.js";
 
-module.exports = async (client, member) => {
+export default async (client, member) => {
   try {
     await deleteDocument("warns", member.id);
     await deleteDocument("suspensions", member.id);

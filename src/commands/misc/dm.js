@@ -1,12 +1,8 @@
-const {
-  PermissionFlagsBits,
-  ApplicationCommandOptionType,
-  EmbedBuilder,
-} = require("discord.js");
+import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 
-const buildModal = require("../../utils/buildModal");
+import buildModal from "../../utils/buildModal.js";
 
-module.exports = {
+export default {
   /**
    *
    * @param {Client} client

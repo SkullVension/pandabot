@@ -1,6 +1,6 @@
-const { ApplicationCommandType } = require("discord.js");
+import { ApplicationCommandType } from "discord.js";
 
-module.exports = {
+export default {
   name: "User Info",
   type: ApplicationCommandType.User,
 

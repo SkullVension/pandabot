@@ -1,6 +1,6 @@
-const { PermissionFlagsBits } = require("discord.js");
+import { PermissionFlagsBits } from "discord.js";
 
-module.exports = {
+export default {
   name: "lock",
   description: "Locks current channel.",
   permissionsRequired: [PermissionFlagsBits.Administrator],

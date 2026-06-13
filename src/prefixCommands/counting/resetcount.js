@@ -1,8 +1,10 @@
-const { PermissionFlagsBits } = require("discord.js");
-const { serverConfig } = require("../../../config.json");
-const { counts } = require("../../states/counting");
+import { PermissionFlagsBits } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
+import { counts } from "../../states/counting.js";
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   name: "resetcount",
   description: "Resets the counting channel count.",
   permissionsRequired: [PermissionFlagsBits.Administrator],

@@ -1,8 +1,10 @@
-const { EmbedBuilder } = require("discord.js");
-const { serverConfig } = require("../../../config.json");
-const { deleteDocument, getDocument } = require("../../utils/firestore");
+import { EmbedBuilder } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
+import { deleteDocument, getDocument } from "../../utils/firestore.js";
 
-module.exports = async (client, message) => {
+const { serverConfig } = data;
+
+export default async (client, message) => {
   if (!message.guild || message.author.bot) return;
   if (message.channel.id !== serverConfig.suspendedChannel) return;
   // check if the user have finished their suspended duration, if so, unsuspnd them

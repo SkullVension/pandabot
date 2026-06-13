@@ -1,8 +1,10 @@
-const { EmbedBuilder } = require("discord.js");
-const { serverConfig } = require("../../../config.json");
-const Profile = require("../../models/Profile");
+import { EmbedBuilder } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
+import Profile from "../../models/Profile.js";
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   callback: async (client, interaction) => {
     if (interaction.user.bot) return;
 

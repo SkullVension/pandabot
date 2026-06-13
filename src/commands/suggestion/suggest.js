@@ -1,7 +1,9 @@
-const { serverConfig } = require("../../../config.json");
-const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
+import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   /**
    *
    * @param {Client} client

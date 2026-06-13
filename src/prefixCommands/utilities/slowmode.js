@@ -1,6 +1,6 @@
-const { PermissionFlagsBits } = require("discord.js");
+import { PermissionFlagsBits } from "discord.js";
 
-module.exports = {
+export default {
   name: "slowmode",
   description: "Set slowmode for the channel. Usage: !slowmode <duration>",
   permissionsRequired: [PermissionFlagsBits.Administrator],

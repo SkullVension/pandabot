@@ -1,7 +1,7 @@
-const { afks } = require("../../states/afk");
-const { EmbedBuilder } = require("discord.js");
+import { EmbedBuilder } from "discord.js";
+import { afks } from "../../states/afk.js";
 
-module.exports = {
+export default {
   name: "afk",
   description: "Set your status to AFK",
   callback(client, message, args) {

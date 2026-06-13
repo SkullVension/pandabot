@@ -1,12 +1,14 @@
-const { serverConfig } = require("../../../config.json");
-const {
-  EmbedBuilder,
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-} = require("discord.js");
+  EmbedBuilder,
+} from "discord.js";
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = async (client, reaction) => {
+const { serverConfig } = data;
+
+export default async (client, reaction) => {
   try {
     if (reaction.partial) await reaction.fetch();
     if (reaction.message.partial) await reaction.message.fetch();

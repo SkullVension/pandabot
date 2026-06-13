@@ -1,17 +1,16 @@
-const {
+import crypto from "crypto";
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   ChannelType,
-  PermissionFlagsBits,
-  StringSelectMenuBuilder,
-  StringSelectMenuOptionBuilder,
   EmbedBuilder,
-} = require("discord.js");
+  PermissionFlagsBits,
+} from "discord.js";
+import data from "../../config.json" with { type: "json" };
+import buildModal from "../utils/buildModal.js";
 
-const { serverConfig } = require("../../config.json");
-const buildModal = require("../utils/buildModal");
-const crypto = require("crypto");
+const { serverConfig } = data;
 
 const selectMenu = [
   {
@@ -112,7 +111,7 @@ function getSelectedOption(ticketType) {
   return selectMenu.find((option) => option.value === ticketType);
 }
 
-module.exports = {
+export default {
   id: "ticket_type_select",
   callback: async (client, interaction) => {
     if (interaction.user.bot) return;

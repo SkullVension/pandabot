@@ -1,11 +1,17 @@
-const path = require("path");
-const getAllFiles = require("../../utils/getAllFiles");
-const { prefixes } = require("../../../config.json");
+import path from "path";
+import { fileURLToPath } from "url";
+import data from "../../../config.json" with { type: "json" };
+import getAllFiles from "../../utils/getAllFiles.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const { prefixes } = data;
 
 const COOLDOWN_SECONDS = 3;
 const USER_COOLDOWNS = new Map();
 
-module.exports = async (client, message) => {
+export default async (client, message) => {
   if (!message || !message.guild || message.author?.bot) return;
 
   const now = Date.now();
@@ -40,7 +46,8 @@ module.exports = async (client, message) => {
     for (const category of prefixCommandsCategories) {
       const commandFiles = getAllFiles(category);
       for (const file of commandFiles) {
-        const command = require(file);
+        const mod = await import(file);
+        const command = (mod && mod.default) || mod;
         prefixCommands.push(command);
       }
     }
@@ -65,7 +72,9 @@ module.exports = async (client, message) => {
         }
       }
     }
-    commandObject.callback(client, message, args);
+    if (typeof commandObject.callback === "function") {
+      await commandObject.callback(client, message, args);
+    }
   } catch (err) {
     console.error("Prefix Command Error:", err);
   }

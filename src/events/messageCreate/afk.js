@@ -1,7 +1,7 @@
-const { afks } = require("../../states/afk");
-const { EmbedBuilder } = require("discord.js");
+import { EmbedBuilder } from "discord.js";
+import { afks } from "../../states/afk.js";
 
-module.exports = async (client, message) => {
+export default async (client, message) => {
   if (!message.guild || message.author.bot) return;
 
   if (afks.has(message.author.id)) {

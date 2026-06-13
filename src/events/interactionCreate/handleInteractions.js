@@ -1,24 +1,31 @@
-const getAllFiles = require("../../utils/getAllFiles");
-const path = require("path");
+import path from "path";
+import { fileURLToPath } from "url";
+import getAllFiles from "../../utils/getAllFiles.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const interactions = [];
 const interactionFiles = getAllFiles(
   path.join(__dirname, "..", "..", "interactions"),
 );
 for (const file of interactionFiles) {
-  const command = require(file);
+  const mod = await import(file);
+  const command = (mod && mod.default) || mod;
   interactions.push(command);
 }
 
-module.exports = async (client, interaction) => {
+export default async (client, interaction) => {
   try {
     const interactionObject = interactions.find(
-      (cmd) => cmd.id === interaction.customId,
+      (cmd) => cmd?.id === interaction.customId,
     );
 
     if (!interactionObject) return;
 
-    await interactionObject.callback(client, interaction);
+    if (typeof interactionObject.callback === "function") {
+      await interactionObject.callback(client, interaction);
+    }
   } catch (error) {
     console.log(`There was an error running this command: ${error}`);
   }

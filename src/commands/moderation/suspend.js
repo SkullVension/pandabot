@@ -1,15 +1,16 @@
-const {
-  Client,
-  Interaction,
+import {
   ApplicationCommandOptionType,
-  PermissionFlagsBits,
+  Client,
   EmbedBuilder,
-} = require("discord.js");
-const { serverConfig } = require("../../../config.json");
-const { createDocument } = require("../../utils/firestore");
-const ms = require("ms");
+  PermissionFlagsBits,
+} from "discord.js";
+import ms from "ms";
+import data from "../../../config.json" with { type: "json" };
+import { createDocument } from "../../utils/firestore.js";
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   /**
    * @param {Client} client
    * @param {Interaction} interaction

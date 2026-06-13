@@ -1,6 +1,6 @@
-const Profile = require("../../models/Profile");
+import Profile from "../../models/Profile.js";
 
-module.exports = {
+export default {
   callback: async (client, interaction) => {
     try {
       if (interaction.user.bot) return;

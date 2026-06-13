@@ -1,3 +1,1 @@
-const counts = new Map();
-
-module.exports = { counts };
+export const counts = new Map();
