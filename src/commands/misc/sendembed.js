@@ -1,8 +1,8 @@
-const { PermissionFlagsBits, EmbedBuilder } = require("discord.js");
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
-const buildModal = require("../../utils/buildModal");
+import buildModal from "../../utils/buildModal.js";
 
-module.exports = {
+export default {
   /**
    *
    * @param {Client} client

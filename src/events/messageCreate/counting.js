@@ -1,8 +1,10 @@
-const { serverConfig } = require("../../../config.json");
-const { counts } = require("../../states/counting");
-const Counting = require("../../models/Counting");
+import data from "../../../config.json" with { type: "json" };
+import Counting from "../../models/Counting.js";
+import { counts } from "../../states/counting.js";
 
-module.exports = async (client, message) => {
+const { serverConfig } = data;
+
+export default async (client, message) => {
   try {
     if (!message?.guild) return;
     if (message.author?.bot) return;

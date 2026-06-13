@@ -1,8 +1,10 @@
-const rules = require("../../data/rules.json");
-const { EmbedBuilder } = require("discord.js");
-const { prefixes } = require("../../../config.json");
+import { EmbedBuilder } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
+import rules from "../../data/rules.json" with { type: "json" };
 
-module.exports = async (client, message) => {
+const { prefixes } = data;
+
+export default async (client, message) => {
   if (!message.guild || message.author.bot) return;
 
   const prefixUsed = prefixes.find((prefix) =>

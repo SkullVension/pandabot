@@ -1,10 +1,12 @@
-const { macroPrefixes } = require("../../../config.json");
-const macros = require("../../data/macros.json");
+import data from "../../../config.json" with { type: "json" };
+import macros from "../../data/macros.json" with { type: "json" };
+
+const { macroPrefixes } = data;
 
 const COOLDOWN_SECONDS = 3;
 const USER_COOLDOWNS = new Map();
 
-module.exports = async (client, message) => {
+export default async (client, message) => {
   if (!message || !message.guild || message.author?.bot) return;
 
   const now = Date.now();

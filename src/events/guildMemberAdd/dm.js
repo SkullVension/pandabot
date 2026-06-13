@@ -1,4 +1,4 @@
-module.exports = async (client, member) => {
+export default async (client, member) => {
   if (!member || !member.id) return;
 
   try {

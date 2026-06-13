@@ -1,12 +1,18 @@
-const { devs, guildId } = require("../../../config.json");
-const getLocalCommands = require("../../utils/getLocalCommands");
-const getAllFiles = require("../../utils/getAllFiles");
-const path = require("path");
+import path from "path";
+import { fileURLToPath } from "url";
+import data from "../../../config.json" with { type: "json" };
+import getAllFiles from "../../utils/getAllFiles.js";
+import getLocalCommands from "../../utils/getLocalCommands.js";
 
-module.exports = async (client, interaction) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const { devs, guildId } = data;
+
+export default async (client, interaction) => {
   if (!interaction.isCommand()) return;
 
-  const localCommands = getLocalCommands();
+  const localCommands = await getLocalCommands();
   const contextMenuCommands = [];
   const contextMenuCategories = getAllFiles(
     path.join(__dirname, "..", "..", "contextMenus"),
@@ -17,7 +23,7 @@ module.exports = async (client, interaction) => {
     const contextMenuFiles = getAllFiles(contextMenuCategory);
 
     for (const file of contextMenuFiles) {
-      const command = require(file);
+      const command = await import(file);
       contextMenuCommands.push(command);
     }
   }

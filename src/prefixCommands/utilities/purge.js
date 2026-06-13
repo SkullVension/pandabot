@@ -1,7 +1,6 @@
-const { PermissionFlagsBits } = require("discord.js");
-const { EmbedBuilder } = require("discord.js");
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
-module.exports = {
+export default {
   name: "purge",
   description: "Purges messages from the current channel.",
   permissionsRequired: [PermissionFlagsBits.Administrator],

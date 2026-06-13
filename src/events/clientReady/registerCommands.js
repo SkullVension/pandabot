@@ -1,14 +1,20 @@
-const { guildId } = require("../../../config.json");
-const { ApplicationCommandType } = require("discord.js");
-const areCommandsDifferent = require("../../utils/areCommandsDifferent");
-const getApplicationCommands = require("../../utils/getApplicationCommands");
-const getLocalCommands = require("../../utils/getLocalCommands");
-const getAllFiles = require("../../utils/getAllFiles");
-const path = require("path");
+import { ApplicationCommandType } from "discord.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import data from "../../../config.json" with { type: "json" };
+import areCommandsDifferent from "../../utils/areCommandsDifferent.js";
+import getAllFiles from "../../utils/getAllFiles.js";
+import getApplicationCommands from "../../utils/getApplicationCommands.js";
+import getLocalCommands from "../../utils/getLocalCommands.js";
 
-module.exports = async (client) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const { guildId } = data;
+
+export default async (client) => {
   try {
-    const localCommands = getLocalCommands();
+    const localCommands = await getLocalCommands();
     const contextMenuCommands = [];
     const contextMenuCategories = getAllFiles(
       path.join(__dirname, "..", "..", "contextMenus"),
@@ -19,7 +25,8 @@ module.exports = async (client) => {
       const contextMenuFiles = getAllFiles(contextMenuCategory);
 
       for (const file of contextMenuFiles) {
-        const command = require(file);
+        const mod = await import(file);
+        const command = (mod && mod.default) || mod;
         contextMenuCommands.push(command);
       }
     }
@@ -77,6 +84,6 @@ module.exports = async (client) => {
     }
     // await applicationCommands.set([]);
   } catch (error) {
-    console.log(`There was an error: ${error}`);
+    console.log(`There was an error in ${__filename}: ${error}`);
   }
 };

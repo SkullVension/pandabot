@@ -1,6 +1,8 @@
-const { serverConfig } = require("../../../config.json");
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = async (client, message) => {
+const { serverConfig } = data;
+
+export default async (client, message) => {
   if (!message || !message.guild || message.author?.bot) return;
 
   const channel = message.channel;

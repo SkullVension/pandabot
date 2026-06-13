@@ -1,7 +1,7 @@
-const Counting = require("../../models/Counting");
-const Profile = require("../../models/Profile");
+import Counting from "../../models/Counting.js";
+import Profile from "../../models/Profile.js";
 
-module.exports = async (client, member) => {
+export default async (client, member) => {
   if (!member || !member.id) return;
 
   try {

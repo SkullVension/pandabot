@@ -1,13 +1,14 @@
-const {
-  Client,
-  Interaction,
+import {
   ApplicationCommandOptionType,
+  Client,
   EmbedBuilder,
   PermissionFlagsBits,
-} = require("discord.js");
-const { serverConfig } = require("../../../config.json");
+} from "discord.js";
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   /**
    * @param {Client} client
    * @param {Interaction} interaction

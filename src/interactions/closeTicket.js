@@ -1,10 +1,12 @@
-const { PermissionFlagsBits, EmbedBuilder } = require("discord.js");
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
-const { serverConfig } = require("../../config.json");
-const buildModal = require("../utils/buildModal");
-const buildTicketTranscript = require("../utils/buildTicketTranscript");
+import data from "../../config.json" with { type: "json" };
+import buildModal from "../utils/buildModal.js";
+import buildTicketTranscript from "../utils/buildTicketTranscript.js";
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   id: "close_ticket",
   callback: async (client, interaction) => {
     const { database, transcripts } = serverConfig.tickets;

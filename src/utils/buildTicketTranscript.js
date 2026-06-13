@@ -7,7 +7,7 @@ const escapeHtml = (text) => {
     .replace(/'/g, "&#39;");
 };
 
-module.exports = async (client, messages) => {
+export default async (client, messages) => {
   let html = `
   <!DOCTYPE html>
   <html lang="en">

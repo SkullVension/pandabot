@@ -1,3 +1,1 @@
-const afks = new Map();
-
-module.exports = { afks };
+export const afks = new Map();

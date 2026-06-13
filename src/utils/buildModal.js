@@ -1,9 +1,9 @@
-const {
+import {
+  ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
-  ActionRowBuilder,
-} = require("discord.js");
+} from "discord.js";
 
 /**
  * Build a Modal from a config object.
@@ -13,7 +13,7 @@ const {
  *  fields: [{ customId, label, style, placeholder, required, maxLength, minLength }]
  * }
  */
-module.exports = (client, config = {}) => {
+export default (client, config = {}) => {
   const modal = new ModalBuilder()
     .setCustomId(config.customId || "modal")
     .setTitle(config.title || "Modal");

@@ -1,7 +1,7 @@
-const { EmbedBuilder } = require("discord.js");
-const Counting = require("../../models/Counting");
+import { EmbedBuilder } from "discord.js";
+import Counting from "../../models/Counting.js";
 
-module.exports = {
+export default {
   callback: async (client, interaction) => {
     if (interaction.user.bot) return;
 

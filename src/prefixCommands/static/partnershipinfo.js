@@ -1,7 +1,9 @@
-const { EmbedBuilder } = require("discord.js");
-const { serverConfig } = require("../../../config.json");
+import { EmbedBuilder } from "discord.js";
+import data from "../../../config.json" with { type: "json" };
 
-module.exports = {
+const { serverConfig } = data;
+
+export default {
   name: "partnershipinfo",
   description: "Provides information about partnership.",
   alias: ["partner", "partnership", "partnerinfo"],

@@ -1,9 +1,6 @@
-const {
-  PermissionFlagsBits,
-  ApplicationCommandOptionType,
-} = require("discord.js");
+import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 
-module.exports = {
+export default {
   /**
    *
    * @param {Client} client
