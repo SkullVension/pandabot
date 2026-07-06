@@ -41,7 +41,10 @@ export default {
           !/^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_-]+\/?$/.test(github):
           error = "GitHub link must be a valid GitHub profile URL.";
           break;
-        case portfolio !== null && !/^https?:\/\/[^\s]+$/.test(portfolio):
+        case portfolio !== null &&
+          !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
+            portfolio,
+          ):
           error = "Portfolio link must be a valid URL.";
           break;
       }
