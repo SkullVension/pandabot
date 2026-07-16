@@ -125,6 +125,10 @@ export default async (client, message) => {
             await message.react("🎆");
             break;
           case 500:
+            newSaves += 3;
+            await message.channel.send(
+              `+3 saves have been added! Let's keep going!`,
+            );
             await message.react("👑");
             break;
           case 750:

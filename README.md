@@ -1,7 +1,7 @@
 # 🐼 Panda Bot
 
 Panda Bot is a powerful, all-in-one Discord bot designed to make DevHub server more engaging, organized, and fun.
-It comes packed with features for community management, moderation, and interactive systems.
+It comes packed with features for community management, macros, fun things and lot more.
 
 ## ✨ Features
 
@@ -19,9 +19,6 @@ It comes packed with features for community management, moderation, and interact
 
 - **Auto Moderation**
   Detect bad words, and unwanted behavior before it becomes a problem.
-
-- **Moderation Tools**
-  Commands for warnings, kicks, bans, mutes, warns, suspensions and more to keep the server safe.
 
 - **Suggestion System**
   Collect, manage, and vote on community suggestions with a clean interface.

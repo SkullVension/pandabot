@@ -5,6 +5,8 @@ export default {
     try {
       if (interaction.user.bot) return;
 
+      let error;
+
       const bio = interaction.options.getString("bio");
       const country = interaction.options.getString("country");
       const age = interaction.options.getInteger("age");
@@ -17,6 +19,42 @@ export default {
 
       if (!profile) {
         profile = new Profile({ userId: interaction.user.id });
+      }
+
+      switch (true) {
+        case bio !== null && (bio.length < 2 || bio.length > 200):
+          error = "Bio must be between 2 and 200 characters.";
+          break;
+        case country !== null && (country.length < 2 || country.length > 100):
+          error = "Country must be between 2 and 100 characters.";
+          break;
+        case age !== null && (age < 1 || age > 1000):
+          error = "Age must be a number between 1 and 1000.";
+          break;
+        case stack !== null && (stack.length < 2 || stack.length > 200):
+          error = "Stack must be between 2 and 200 characters.";
+          break;
+        case hobbies !== null && (hobbies.length < 2 || hobbies.length > 200):
+          error = "Hobbies must be between 2 and 200 characters.";
+          break;
+        case github !== null &&
+          !/^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_-]+\/?$/.test(github):
+          error = "GitHub link must be a valid GitHub profile URL.";
+          break;
+        case portfolio !== null &&
+          !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
+            portfolio,
+          ):
+          error = "Portfolio link must be a valid URL.";
+          break;
+      }
+
+      if (error) {
+        await interaction.reply({
+          content: `❌ ${error}`,
+          ephemeral: true,
+        });
+        return;
       }
 
       if (bio !== null) profile.bio = bio;
@@ -37,7 +75,7 @@ export default {
       console.error("Error editing profile:", error);
       await interaction.reply({
         content:
-          "❌ An error occurred while updating your profile, Please make sure your inputs are valid (e.g. age should be a number between 0 and 1000).",
+          "❌ An error occurred while updating your profile, Please make sure your inputs are valid (e.g. age should be a number between 1 and 1000).",
         ephemeral: true,
       });
     }
@@ -47,14 +85,37 @@ export default {
   description: "Edit your profile",
 
   options: [
-    { name: "bio", description: "Your bio", type: 3, required: false },
-    { name: "country", description: "Your country", type: 3, required: false },
-    { name: "age", description: "Your age", type: 4, required: false },
+    {
+      name: "bio",
+      description: "Your bio",
+      type: 3,
+      required: false,
+      min_length: 2,
+      max_length: 200,
+    },
+    {
+      name: "country",
+      description: "Your country",
+      type: 3,
+      required: false,
+      min_length: 2,
+      max_length: 100,
+    },
+    {
+      name: "age",
+      description: "Your age",
+      type: 4,
+      required: false,
+      min_value: 1,
+      max_value: 1000,
+    },
     {
       name: "stack",
       description: "Your development stack",
       type: 3,
       required: false,
+      min_length: 2,
+      max_length: 200,
     },
     {
       name: "github",
@@ -73,6 +134,8 @@ export default {
       description: "Your hobbies",
       type: 3,
       required: false,
+      min_length: 2,
+      max_length: 200,
     },
   ],
 };
