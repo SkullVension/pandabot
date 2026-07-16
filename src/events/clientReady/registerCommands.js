@@ -1,4 +1,5 @@
 import { ApplicationCommandType } from "discord.js";
+import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
 import data from "../../../config.json" with { type: "json" };
@@ -13,6 +14,12 @@ const __dirname = path.dirname(__filename);
 const { guildId } = data;
 
 export default async (client) => {
+  if (process.env.REGISTER_COMMANDS == "false") {
+    console.log(
+      "[WARN] process.env.REGISTER_COMMANDS is set to false. Skipping slash command registration.",
+    );
+    return;
+  }
   try {
     const localCommands = await getLocalCommands();
     const contextMenuCommands = [];
@@ -86,7 +93,7 @@ export default async (client) => {
         console.log(`👍 Registered command "${name}."`);
       }
     }
-    // await applicationCommands.set([]);
+    await applicationCommands.set([]);
   } catch (error) {
     console.log(`There was an error in ${__filename}: ${error}`);
   }
