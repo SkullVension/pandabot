@@ -1,12 +1,12 @@
 {
   "name": "pandabot",
   "version": "1.0.0",
-  "description": "Hello, I’m Panda — the kernel of DevHub Discord Server",
+  "description": "Hello, I’m Panda, the kernel bot of the DevHub Discord Server",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node .",
-    "dev": "node . --watch",
+    "start": "bun .",
+    "dev": "bun --watch .",
     "format": "prettier --write ."
   },
   "keywords": [],
@@ -15,7 +15,6 @@
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "firebase": "^12.7.0",
     "firebase-admin": "^13.8.0",
     "mongoose": "^6.9.0",
     "ms": "^2.1.3",
