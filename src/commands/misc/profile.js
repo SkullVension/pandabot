@@ -1,6 +1,6 @@
-import { EmbedBuilder } from "discord.js";
 import data from "../../../config.json" with { type: "json" };
 import Profile from "../../models/Profile.js";
+import buildProfileMessage from "../../utils/buildProfileMessage.js";
 
 const { serverConfig } = data;
 
@@ -42,79 +42,23 @@ export default {
         })
       : "Unknown";
 
-    const embed = new EmbedBuilder()
-      .setTitle(`${target.displayName}`)
-      .setColor(0x2b2d31)
-      .setThumbnail(target.displayAvatarURL({ size: 256 }));
-
-    if (badgeString) {
-      embed.setDescription(badgeString);
-    }
-
-    if (bio) {
-      embed.addFields({
-        name: "Bio",
-        value: bio,
-        inline: false,
-      });
-    }
-
-    if (country) {
-      embed.addFields({
-        name: "Country",
-        value: country,
-        inline: true,
-      });
-    }
-
-    if (age) {
-      embed.addFields({
-        name: "Age",
-        value: `${age}`,
-        inline: true,
-      });
-    }
-
-    if (stack) {
-      embed.addFields({
-        name: "Stack",
-        value: stack,
-        inline: true,
-      });
-    }
-
-    if (github) {
-      embed.addFields({
-        name: "GitHub",
-        value: `[@${github.split("/").pop()}](${github})`,
-        inline: true,
-      });
-    }
-
-    if (portfolio) {
-      embed.addFields({
-        name: "Portfolio",
-        value: `[Click Here](${portfolio})`,
-        inline: true,
-      });
-    }
-
-    if (hobbies) {
-      embed.addFields({
-        name: "Hobbies",
-        value: hobbies,
-        inline: true,
-      });
-    }
-
-    embed.setFooter({
-      text: `Joined ${joined}`,
-      iconURL: target.displayAvatarURL(),
+    const payload = buildProfileMessage({
+      target,
+      member,
+      profile: {
+        bio,
+        country,
+        age,
+        stack,
+        github,
+        portfolio,
+        hobbies,
+      },
+      joined,
+      badgeString,
     });
 
-    await interaction.reply({
-      embeds: [embed],
-    });
+    await interaction.reply(payload);
   },
 
   name: "profile",

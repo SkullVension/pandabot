@@ -1,11 +1,8 @@
 import { ActivityType } from "discord.js";
 
-let presenceInterval = null;
-
 export default (client) => {
   const setPresence = () => {
     if (!client.user) return;
-
     client.user.setPresence({
       activities: [
         {
@@ -19,9 +16,9 @@ export default (client) => {
 
   setPresence();
 
-  if (presenceInterval) {
-    clearInterval(presenceInterval);
+  if (client.presenceInterval) {
+    clearInterval(client.presenceInterval);
   }
 
-  presenceInterval = setInterval(setPresence, 60 * 60 * 1000);
+  client.presenceInterval = setInterval(setPresence, 60 * 60 * 1000);
 };
