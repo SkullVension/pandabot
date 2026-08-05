@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import getAllFiles from "./getAllFiles.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,7 +17,7 @@ export default async (exceptions = []) => {
     const commandFiles = getAllFiles(commandCategory);
 
     for (const commandFile of commandFiles) {
-      const commandModule = await import(commandFile);
+      const commandModule = await import(pathToFileURL(commandFile).href);
       const commandObject =
         (commandModule && commandModule.default) || commandModule;
 

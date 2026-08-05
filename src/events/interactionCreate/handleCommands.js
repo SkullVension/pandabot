@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath , pathToFileURL } from "url";
 import data from "../../../config.json" with { type: "json" };
 import getAllFiles from "../../utils/getAllFiles.js";
 import getLocalCommands from "../../utils/getLocalCommands.js";
@@ -23,7 +23,7 @@ export default async (client, interaction) => {
     const contextMenuFiles = getAllFiles(contextMenuCategory);
 
     for (const file of contextMenuFiles) {
-      const command = await import(file);
+      const command = await import(pathToFileURL(file).href);
       contextMenuCommands.push(command);
     }
   }
