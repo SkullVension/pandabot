@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath , pathToFileURL } from "url";
 import getAllFiles from "../../utils/getAllFiles.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,7 +10,7 @@ const interactionFiles = getAllFiles(
   path.join(__dirname, "..", "..", "interactions"),
 );
 for (const file of interactionFiles) {
-  const mod = await import(file);
+  const mod = await import(pathToFileURL(file).href);
   const command = (mod && mod.default) || mod;
   interactions.push(command);
 }
