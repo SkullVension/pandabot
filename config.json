@@ -2,8 +2,14 @@
   "guildId": "1429026875946172459",
   "clientId": "1430219756820103370",
   "devs": [],
-  "prefixes": ["p!", "P!", "?"],
-  "macroPrefixes": ["++"],
+  "prefixes": [
+    "p!",
+    "P!",
+    "?"
+  ],
+  "macroPrefixes": [
+    "++"
+  ],
   "serverConfig": {
     "welcomeChannel": "1429027697304277173",
     "botCommandsChannel": "1429028988109455454",
@@ -47,7 +53,11 @@
     "starboardExclude": {
       "channels": {
         "rules": "1429027865957109861",
-        "intro": "1429028199840350311"
+        "info": "1429028199840350311",
+        "jobBoard": "1494350974242783353",
+        "important": "1444027597364400138",
+        "logs": "1484208310998663329",
+        "other": "1532474240480317560"
       },
       "categories": {
         "modCategory": "1429035248754098176",
