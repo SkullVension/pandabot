@@ -35,23 +35,25 @@ export default {
         });
       }
 
-      const updatedEmbed = EmbedBuilder.from(originalEmbed)
-        .setTitle("✅ Suggestion Implemented")
-        .setColor(0x57f287) // Green
-        .setFields([
-          { name: "Release Note", value: note },
-          { name: "Completed By", value: `<@${interaction.user.id}>`, inline: true },
-        ]);
-
-      await targetMessage.edit({ embeds: [updatedEmbed] });
+    const updatedEmbed = EmbedBuilder.from(originalEmbed)
+      .setTitle("✅ Suggestion Implemented")
+      .setColor(0x5865f2)
+      .addFields([
+      { name: "Staff Note", value: note },
+      { name: "Implemented By", value: `<@${interaction.user.id}>`, inline: true },
+  ]);
+  await targetMessage.edit({ embeds: [updatedEmbed] });
 
       if (targetMessage.thread) {
-        await targetMessage.thread.send({
-          content: `✅ **Status Update:** This suggestion has been **Implemented**!\n> **Note:** ${note}`,
-        });
-        await targetMessage.thread.setLocked(true, "Suggestion Implemented");
-      }
-
+    try {
+  await targetMessage.thread.send({
+  content: `✅ **Status Update:** This suggestion has been **Implemented**!\n> **Note:** ${note}`,
+  });
+  await targetMessage.thread.setLocked(true, "Suggestion Implemented");
+    } catch (threadError) {
+      console.error("Failed to update thread:", threadError);
+    }
+  }        
       return interaction.editReply({
         content: `Successfully marked suggestion as implemented: ${targetMessage.url}`,
       });
