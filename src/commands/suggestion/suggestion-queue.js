@@ -46,11 +46,15 @@ export default {
 
       await targetMessage.edit({ embeds: [updatedEmbed] });
 
-      if (targetMessage.thread) {
-        await targetMessage.thread.send({
-          content: `📌 **Status Update:** This suggestion has been **Queued**.\n> **Note:** ${reason}`,
-        });
-      }
+if (targetMessage.thread) {
+try {
+await targetMessage.thread.send({
+content: `📌 **Status Update:** This suggestion has been **Queued**.\n> **Note:** ${reason}`,
+});
+} catch (threadError) {
+console.error("Failed to update thread:", threadError);
+}
+
 
       return interaction.editReply({
         content: `Successfully queued suggestion: ${targetMessage.url}`,
