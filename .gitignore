@@ -1,4 +1,5 @@
 node_modules/
+.npm/
+.bun/
 .env
-.zap/
 *.key
