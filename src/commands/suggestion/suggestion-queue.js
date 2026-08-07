@@ -5,7 +5,6 @@ const { serverConfig } = data;
 
 export default {
   callback: async (client, interaction) => {
-    // 1. Defer immediately to prevent Discord's 3-second timeout error (Unknown Interaction)
     await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     if (!interaction.inGuild()) {
@@ -38,7 +37,7 @@ export default {
 
       const updatedEmbed = EmbedBuilder.from(originalEmbed)
         .setTitle("📌 Suggestion Queued")
-        .setColor(0x5865f2) // Blurple
+        .setColor(0x5865f2)
         .setFields([
           { name: "Staff Note", value: reason },
           { name: "Queued By", value: `<@${interaction.user.id}>`, inline: true },
@@ -46,17 +45,16 @@ export default {
 
       await targetMessage.edit({ embeds: [updatedEmbed] });
 
-if (targetMessage.thread) {
-try {
-await targetMessage.thread.send({
-content: `📌 **Status Update:** This suggestion has been **Queued**.\n> **Note:** ${reason}`,
-});
-} catch (threadError) {
-console.error("Failed to update thread:", threadError);
-}
-
-
-      return interaction.editReply({
+        if (targetMessage.thread) {
+    try {
+      await targetMessage.thread.send({
+          content: `📌 **Status Update:** This suggestion has been **Queued**.\n> **Note:** ${reason}`,
+      });
+    } catch (threadError) {
+    console.error("Failed to update thread:", threadError);
+    }
+  }
+     return interaction.editReply({
         content: `Successfully queued suggestion: ${targetMessage.url}`,
       });
     } catch (error) {
