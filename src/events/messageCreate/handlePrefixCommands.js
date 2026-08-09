@@ -1,3 +1,4 @@
+import { pathToFileURL } from "url";
 import path from "path";
 import { fileURLToPath } from "url";
 import data from "../../../config.json" with { type: "json" };
@@ -46,7 +47,7 @@ export default async (client, message) => {
     for (const category of prefixCommandsCategories) {
       const commandFiles = getAllFiles(category);
       for (const file of commandFiles) {
-        const mod = await import(file);
+        const mod = await import(pathToFileURL(file).href);
         const command = (mod && mod.default) || mod;
         prefixCommands.push(command);
       }

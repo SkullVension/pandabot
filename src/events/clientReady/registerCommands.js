@@ -1,7 +1,7 @@
 import { ApplicationCommandType } from "discord.js";
 import "dotenv/config";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import data from "../../../config.json" with { type: "json" };
 import areCommandsDifferent from "../../utils/areCommandsDifferent.js";
 import getAllFiles from "../../utils/getAllFiles.js";
@@ -32,7 +32,7 @@ export default async (client) => {
       const contextMenuFiles = getAllFiles(contextMenuCategory);
 
       for (const file of contextMenuFiles) {
-        const mod = await import(file);
+        const mod = await import(pathToFileURL(path.resolve(file)).href);
         const command = (mod && mod.default) || mod;
         contextMenuCommands.push(command);
       }
@@ -92,8 +92,7 @@ export default async (client) => {
 
         console.log(`👍 Registered command "${name}."`);
       }
-    }
-    await applicationCommands.set([]);
+    }	
   } catch (error) {
     console.log(`There was an error in ${__filename}: ${error}`);
   }
