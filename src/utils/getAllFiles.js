@@ -11,14 +11,14 @@ const getAllFiles = (directory, foldersOnly = false) => {
     const normalizedPath = filePath.replace(/^[a-z]:/i, (match) => match.toUpperCase());
 
         if (file.isDirectory()) {
-      if (foldersOnly) {
-        fileNames.push(normalizedPath);
-      }
-      fileNames.push(...getAllFiles(normalizedPath, foldersOnly));
-    } else if (file.isFile() && !foldersOnly) {
+  if (foldersOnly) {
       fileNames.push(normalizedPath);
-    }
   }
+      fileNames.push(...getAllFiles(normalizedPath, foldersOnly));
+  } else if (file.isFile() && !foldersOnly) {
+    fileNames.push(normalizedPath);
+}
+   }
 
   return fileNames;
 };
