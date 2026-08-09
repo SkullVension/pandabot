@@ -17,7 +17,7 @@ export default async (exceptions = []) => {
     const commandFiles = getAllFiles(commandCategory);
 
     for (const commandFile of commandFiles) {
-      const commandModule = await import(pathToFileURL(commandFile).href);
+      const commandModule = await import(pathToFileURL(path.resolve(commandFile)).href);
       const commandObject =
         (commandModule && commandModule.default) || commandModule;
 

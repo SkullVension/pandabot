@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath , pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import getAllFiles from "../utils/getAllFiles.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,7 +16,8 @@ export default (client) => {
 
     client.on(eventName, async (...args) => {
       for (const eventFile of eventFiles) {
-        const eventModule = await import(pathToFileURL(eventFile).href);
+        const fixedPath = path.resolve(eventFile).replace(/^[a-z]:/, (match) => match.toUpperCase());
+        const eventModule = await import(pathToFileURL(fixedPath).href);
         const eventFunction =
           (eventModule && (eventModule.default || eventModule.execute)) ||
           eventModule;
