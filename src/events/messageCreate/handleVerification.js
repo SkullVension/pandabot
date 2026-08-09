@@ -17,16 +17,17 @@ export default async (client, message) => {
 
   if (!member || !suspendedRole) return;
 
-  if (message.content.trim().toLowerCase() === activeVerification.captchaAnswer) {
-    try {
-      await member.roles.remove(suspendedRole, "Passed manual text verification captcha.");
-      await Verification.deleteOne({ userId: message.author.id });
-      await message.reply("✅ Verification successful! Your server access has been completely restored.");
-    } catch (err) {
-      console.error(err);
-      await message.reply("❌ Code correct, but role update failed. Contact a moderator.");
-    }
+  if (message.content.trim().toLowerCase() === activeVerification.captchaAnswer.toLowerCase()) {
+try {
+  await member.roles.remove(suspendedRole, "Passed manual text verification captcha.");
+  
+  await Verification.deleteOne({ userId: message.author.id });
+  await message.reply("✅ Verification successful! Your server access has been completely restored.");
+} catch (err) {
+  console.error(`Verification error for user ${message.author.id}:`, err);
+  await message.reply("❌ Verification failed due to a server error. Please try again or contact a moderator.");
+}
   } else {
     await message.reply("❌ Incorrect code. Please look at the image carefully and try typing it again.");
-  }
+}
 };
