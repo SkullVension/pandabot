@@ -1,6 +1,6 @@
 import { pathToFileURL } from "url";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath , pathToFileURL } from "url";
 import getAllFiles from "../../utils/getAllFiles.js";
 
 const __filename = fileURLToPath(import.meta.url);

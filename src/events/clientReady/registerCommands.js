@@ -32,7 +32,7 @@ export default async (client) => {
       const contextMenuFiles = getAllFiles(contextMenuCategory);
 
       for (const file of contextMenuFiles) {
-        const mod = await import(pathToFileURL(path.resolve(file)).href);
+        const mod = await import(pathToFileURL(file).href);
         const command = (mod && mod.default) || mod;
         contextMenuCommands.push(command);
       }
@@ -92,7 +92,7 @@ export default async (client) => {
 
         console.log(`👍 Registered command "${name}."`);
       }
-    }	
+    }
   } catch (error) {
     console.log(`There was an error in ${__filename}: ${error}`);
   }

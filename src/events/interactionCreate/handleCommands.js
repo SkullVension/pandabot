@@ -1,6 +1,6 @@
 import { pathToFileURL } from "url";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath , pathToFileURL } from "url";
 import data from "../../../config.json" with { type: "json" };
 import getAllFiles from "../../utils/getAllFiles.js";
 import getLocalCommands from "../../utils/getLocalCommands.js";
