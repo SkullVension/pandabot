@@ -1,4 +1,3 @@
-import { pathToFileURL } from "url";
 import path from "path";
 import { fileURLToPath , pathToFileURL } from "url";
 import data from "../../../config.json" with { type: "json" };
