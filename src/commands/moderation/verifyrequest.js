@@ -24,30 +24,31 @@ export default {
     if (optMember.roles.cache.has(suspendedRole.id)) return interaction.editReply("User is already under verification.");
 
     const { image: imageBuffer, text: captchaText } = createCaptchaSync(350, 120, {
-    captcha: { 
-      characters: 6, 
-      size: 50, 
+    captcha: {
+      characters: 6,
+      size: 50,
       color: "#5865f2",
-      skew: true 
-    },
-    decoy: { opacity: 0.3, total: 20 },
-    trace: { color: "#ed4245", size: 3, opacity: 0.5 }
-  });
+      skew: true
+  },
+     decoy: { opacity: 0.3, total: 20 },
+     trace: { color: "#ed4245", size: 3, opacity: 0.5 }
+});
     
     const attachment = new AttachmentBuilder(imageBuffer, { name: "captcha.png" });
 
     try {
       await SuspendedMember.findOneAndUpdate(
         { guildId: interaction.guild.id, userId: optMember.id },
-        { roleId: suspendedRole.id },
+        { guildId: interaction.guild.id, userId: optMember.id, roleId: suspendedRole.id },
         { upsert: true, new: true }
       );
       
       await Verification.findOneAndUpdate(
         { guildId: interaction.guild.id, userId: optMember.id },
-        { captchaAnswer: captchaText.toLowerCase() },
+        { guildId: interaction.guild.id, userId: optMember.id, captchaAnswer: captchaText.toLowerCase() },
         { upsert: true }
       );
+
 
       await optMember.roles.add(suspendedRole, "Manual Verification Request");
       const dmEmbed = new EmbedBuilder()
