@@ -8,18 +8,15 @@ const getAllFiles = (directory, foldersOnly = false) => {
   for (const file of files) {
     const filePath = path.join(directory, file.name);
     
-    const normalizedPath = filePath.replace(/^[a-z]:/, (match) => match.toUpperCase());
+    const normalizedPath = filePath.replace(/^[a-z]:/i, (match) => match.toUpperCase());
 
-    if (foldersOnly) {
-      if (file.isDirectory()) {
+        if (file.isDirectory()) {
+      if (foldersOnly) {
         fileNames.push(normalizedPath);
       }
-    } else {
-      if (file.isFile()) {
-        fileNames.push(normalizedPath);
-      } else {
-        fileNames = [...fileNames, ...getAllFiles(normalizedPath, foldersOnly)];
-      }
+      fileNames.push(...getAllFiles(normalizedPath, foldersOnly));
+    } else if (file.isFile() && !foldersOnly) {
+      fileNames.push(normalizedPath);
     }
   }
 
