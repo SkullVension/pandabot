@@ -7,7 +7,8 @@
   "scripts": {
     "start": "bun .",
     "dev": "bun --watch .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "node node_modules/skia-canvas/lib/prebuild.mjs download --or-compile"
   },
   "keywords": [],
   "author": "Caleb Ephrem",
